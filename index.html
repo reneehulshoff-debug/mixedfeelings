@@ -2,12 +2,8 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <!-- Aanpassing 1: Titel in het tabblad -->
     <title>Mixed Feelings - 1.0</title>
-    
-    <!-- Aanpassing 2: Favicon (een icoontje van een abstracte vorm) -->
     <link rel="icon" href="https://fav.farm/✨" />
-
     <style>
         :root {
             --bg: #FEF9E7;
@@ -17,7 +13,6 @@
         }
         body { margin: 0; overflow: hidden; background: var(--bg); font-family: 'Courier New', monospace; }
         
-        /* Aanpassing 3: Naam op het scherm met spatie */
         #title-tag {
             position: absolute;
             top: 20px;
@@ -65,7 +60,6 @@
             margin-bottom: 6px;
             text-transform: uppercase;
             color: #444;
-            padding: 0 5px;
         }
 
         input[type=range] {
@@ -101,7 +95,6 @@
 <body>
 
 <div id="title-tag">Mixed Feelings</div>
-
 <div id="mixer"></div>
 
 <script type="importmap">
@@ -144,48 +137,33 @@
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(-1.2, 0, 0);
 
-    const geometry = new THREE.SphereGeometry(1, 128, 128);
-    const material = new THREE.MeshStandardMaterial({ 
-        vertexColors: true, 
-        roughness: 0.3, 
-        metalness: 0.2,
-        flatShading: false // We berekenen scherpte via de wiskunde, niet via pixels
-    });
+    // Hogere detailgraad (256 ipv 128) voor dunnere punten
+    const geometry = new THREE.SphereGeometry(1, 256, 256);
+    const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.3, metalness: 0.2 });
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
     const originalPositions = geometry.attributes.position.array.slice();
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.8);
-    scene.add(ambient);
     const sun = new THREE.DirectionalLight(0xffffff, params.helderheid);
     sun.position.set(5, 10, 5);
     scene.add(sun);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
 
     const mixer = document.getElementById('mixer');
-
     function addChannel(id, label, type, min, max, step) {
         const chan = document.createElement('div');
         chan.className = 'channel';
         chan.innerHTML = `<div class="label">${label}</div>`;
-
-        if (type === 'range') {
-            const slider = document.createElement('input');
-            slider.type = 'range';
-            slider.min = min; slider.max = max; slider.step = step;
-            slider.value = params[id];
-            slider.oninput = (e) => {
-                params[id] = parseFloat(e.target.value);
-                if(id === 'helderheid') sun.intensity = params[id];
-            };
-            chan.appendChild(slider);
-        } else if (type === 'color') {
-            const picker = document.createElement('input');
-            picker.type = 'color';
-            picker.value = params[id];
-            picker.oninput = (e) => params[id] = e.target.value;
-            chan.appendChild(picker);
-        }
+        const input = document.createElement('input');
+        input.type = type;
+        input.value = params[id];
+        if(type === 'range') { input.min = min; input.max = max; input.step = step; }
+        input.oninput = (e) => { 
+            params[id] = type === 'range' ? parseFloat(e.target.value) : e.target.value;
+            if(id === 'helderheid') sun.intensity = params[id];
+        };
+        chan.appendChild(input);
         mixer.appendChild(chan);
     }
 
@@ -194,8 +172,8 @@
     addChannel('basis', 'Grootte', 'range', 0.5, 2, 0.1);
     addChannel('draagvlak', 'Draagvlak', 'range', 0.2, 2, 0.05);
     addChannel('evenwicht', 'Evenwicht', 'range', -0.6, 0.6, 0.05);
-    addChannel('complexiteit', 'Complexiteit', 'range', 1, 15, 0.2);
-    addChannel('scherpte', 'Scherpte', 'range', 0, 3, 0.05); // Max verhoogd voor extremere punten
+    addChannel('complexiteit', 'Complexiteit', 'range', 1, 20, 0.2);
+    addChannel('scherpte', 'Scherpte', 'range', 0.1, 5, 0.1); // Slider effectiever gemaakt
     addChannel('beheersing', 'Beheersing', 'range', 0, 1, 0.05);
     addChannel('hartslag', 'Hartslag', 'range', 0, 8, 0.1);
     addChannel('spanning', 'Spanning', 'range', 0, 0.5, 0.01);
@@ -206,49 +184,41 @@
     function animate() {
         requestAnimationFrame(animate);
         time += 0.02 * params.hartslag;
-        
         const pos = mesh.geometry.attributes.position.array;
         const colors = new Float32Array(pos.length);
         const c1 = new THREE.Color(params.kern);
         const c2 = new THREE.Color(params.piek);
 
         for (let i = 0; i < pos.length; i += 3) {
-            let vx = originalPositions[i];
-            let vy = originalPositions[i+1];
-            let vz = originalPositions[i+2];
+            let vx = originalPositions[i], vy = originalPositions[i+1], vz = originalPositions[i+2];
 
-            let vibe = Math.sin(time + vx * 10) * params.spanning;
-
+            // Betere noise voor scherpte
             const ch = params.beheersing * 5.0;
-            // Basis noise
-            let noise = Math.sin(vx * params.complexiteit + vy * ch) * 
-                        Math.cos(vy * params.complexiteit + vz * ch) * 
-                        Math.sin(vz * params.complexiteit);
+            let n = Math.sin(vx * params.complexiteit + time * 0.1) * 
+                    Math.cos(vy * params.complexiteit + time * 0.1) * 
+                    Math.sin(vz * params.complexiteit);
 
-            // Aanpassing: Scherpte logica
-            // We gebruiken Math.pow om de pieken exponentieel te maken
-            let absNoise = Math.abs(noise);
-            let sharpNoise = Math.pow(absNoise, 1.0 / (params.scherpte + 0.1));
-            if (noise < 0) sharpNoise *= -1;
-
-            const r = (params.basis + (vy * params.evenwicht)) + (sharpNoise * params.scherpte) + vibe;
+            // DE TRUC: Gebruik een hoge exponent om de punten 'naaldachtig' te maken
+            // Hoe hoger 'scherpte', hoe dunner de basis van de piek
+            let spike = Math.pow(Math.max(0, n), 1.0 + params.scherpte * 2.0) * (params.scherpte * 1.5);
+            
+            let vibe = Math.sin(time + vx * 10) * params.spanning;
+            const r = (params.basis + (vy * params.evenwicht)) + spike + vibe;
             
             const v = new THREE.Vector3(vx, vy * params.draagvlak, vz).normalize().multiplyScalar(r);
             pos[i] = v.x; pos[i+1] = v.y; pos[i+2] = v.z;
 
-            let m = (r - (params.basis - 0.5)) / 1.5;
-            const finalC = new THREE.Color().copy(c1).lerp(c2, Math.max(0, Math.min(1, m)));
+            let m = spike * 0.8;
+            const finalC = new THREE.Color().copy(c1).lerp(c2, Math.min(1, m));
             colors[i] = finalC.r; colors[i+1] = finalC.g; colors[i+2] = finalC.b;
         }
         
         mesh.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
         mesh.geometry.attributes.position.needsUpdate = true;
         mesh.geometry.computeVertexNormals();
-
         mesh.rotation.y += params.draai;
         renderer.render(scene, camera);
     }
-
     animate();
     window.onresize = () => {
         camera.aspect = window.innerWidth / window.innerHeight;
