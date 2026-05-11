@@ -2,91 +2,101 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Mixed Feelings - 1.0</title>
-    <link rel="icon" href="https://fav.farm/✨" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIXED FEELINGS - 3.0</title>
+    <link rel="icon" href="https://fav.farm/💠" />
     <style>
         :root {
-            --bg: #FEF9E7;
-            --panel: #d1d1d1;
-            --fader-knob: #FF10F0;
-            --accent: #00E5FF;
+            --bg: #000000;
+            --panel: rgba(15, 15, 15, 0.9);
+            --text: #ffffff;
+            --accent: #ffffff;
         }
-        body { margin: 0; overflow: hidden; background: var(--bg); font-family: 'Courier New', monospace; }
+        body { margin: 0; overflow: hidden; background: var(--bg); font-family: 'Courier New', monospace; color: var(--text); }
         
+        /* Layout container */
+        #main-container {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #ui-layer {
+            width: 300px;
+            z-index: 10;
+            background: var(--panel);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        #canvas-container {
+            flex-grow: 1;
+            position: relative;
+        }
+
         #title-tag {
-            position: absolute;
-            top: 20px;
-            left: 160px;
+            font-size: 24px;
             font-weight: bold;
-            font-size: 28px;
-            letter-spacing: 3px;
-            color: #202020;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            border-bottom: 4px solid var(--fader-knob);
-            z-index: 5;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 5px;
         }
 
         #mixer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 140px; 
-            height: 100vh;
-            background: var(--panel);
-            border-right: 4px solid #202020;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 20px 0;
-            gap: 5px;
-            overflow-y: auto;
-            box-shadow: 10px 0 20px rgba(0,0,0,0.05);
-            z-index: 10;
+            gap: 20px;
         }
 
-        .channel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            padding: 8px 0;
-            border-bottom: 1px solid #bbb;
-        }
-
-        .label {
-            font-size: 10px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            color: #444;
-        }
-
+        .channel { display: flex; flex-direction: column; gap: 8px; }
+        .label-row { display: flex; justify-content: space-between; align-items: center; }
+        .label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
+        
         input[type=range] {
-            appearance: none;
-            width: 110px;
-            height: 4px;
-            background: #202020;
-            border-radius: 2px;
-            outline: none;
+            appearance: none; background: #333; height: 2px; outline: none; width: 100%;
         }
-
         input[type=range]::-webkit-slider-thumb {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: var(--fader-knob);
-            border: 2px solid #202020;
-            border-radius: 50%;
-            cursor: pointer;
+            appearance: none; width: 14px; height: 14px; background: var(--accent); border-radius: 0; cursor: pointer;
         }
 
         input[type=color] {
-            border: 2px solid #202020;
-            width: 40px;
-            height: 25px;
-            cursor: pointer;
+            background: none; border: 1px solid #666; width: 30px; height: 18px; cursor: pointer; padding: 0;
+        }
+
+        button#reset-btn {
+            margin-top: 10px;
             background: none;
+            border: 1px solid #444;
+            color: #888;
+            padding: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 10px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+        button#reset-btn:hover { color: #fff; border-color: #fff; }
+
+        /* Mobiele aanpassingen */
+        @media (max-width: 768px) {
+            #main-container { flex-direction: column; }
+            #ui-layer { 
+                width: 100%; 
+                height: auto; 
+                order: 2; 
+                border-right: none; 
+                border-top: 1px solid rgba(255,255,255,0.1);
+                padding: 20px;
+            }
+            #canvas-container { height: 50vh; order: 1; }
+            #title-tag { font-size: 18px; margin-bottom: 15px; }
         }
 
         canvas { display: block; }
@@ -94,136 +104,151 @@
 </head>
 <body>
 
-<div id="title-tag">Mixed Feelings</div>
-<div id="mixer"></div>
+<div id="main-container">
+    <div id="ui-layer">
+        <div id="title-tag">MIXED FEELINGS</div>
+        <div id="mixer">
+            <div class="channel">
+                <div class="label-row"><div class="label">Intens</div><input type="color" id="col-intens" data-key="cI"></div>
+                <input type="range" id="val-intens" data-key="vI" min="0" max="1" step="0.01">
+            </div>
+            <div class="channel">
+                <div class="label-row"><div class="label">Snel</div><input type="color" id="col-snel" data-key="cS"></div>
+                <input type="range" id="val-snel" data-key="vS" min="0" max="1" step="0.01">
+            </div>
+            <div class="channel">
+                <div class="label-row"><div class="label">Creatief</div><input type="color" id="col-creatief" data-key="cC"></div>
+                <input type="range" id="val-creatief" data-key="vC" min="0" max="1" step="0.01">
+            </div>
+            <div class="channel">
+                <div class="label-row"><div class="label">Complex</div><input type="color" id="col-complex" data-key="cX"></div>
+                <input type="range" id="val-complex" data-key="vX" min="1" max="8" step="1">
+            </div>
+            <button id="reset-btn">Reset naar standaard</button>
+        </div>
+    </div>
+    <div id="canvas-container"></div>
+</div>
 
 <script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-        }
-    }
+    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
 </script>
 
 <script type="module">
     import * as THREE from 'three';
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    const params = {
-        helderheid: 1.5,
-        kern: '#FF10F0',
-        piek: '#00E5FF',
-        draai: 0.005,
-        basis: 1.0,
-        draagvlak: 1.0,
-        evenwicht: 0.0,
-        complexiteit: 4.0,
-        scherpte: 0.6,
-        hartslag: 1.0,
-        spanning: 0.1,
-        beheersing: 0.2
+    const DEFAULTS = {
+        vI: 0.4, vS: 0.2, vC: 0.3, vX: 4,
+        cI: '#ff66aa', cS: '#66ffff', cC: '#ffffaa', cX: '#ffffff'
     };
 
+    const container = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#FEF9E7');
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(-1.8, 0.5, 4);
+    scene.background = new THREE.Color('#000000');
+    
+    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(0, 0, 3.5);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-    
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(-1.2, 0, 0);
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    container.appendChild(renderer.domElement);
 
-    // Hogere detailgraad (256 ipv 128) voor dunnere punten
-    const geometry = new THREE.SphereGeometry(1, 256, 256);
-    const material = new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.3, metalness: 0.2 });
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+    const p1 = new THREE.PointLight(0xffffff, 20); p1.position.set(5, 5, 5); scene.add(p1);
+    const p2 = new THREE.PointLight(0xffffff, 15); p2.position.set(-5, -5, 5); scene.add(p2);
+    scene.add(new THREE.AmbientLight(0x444444));
 
-    const originalPositions = geometry.attributes.position.array.slice();
+    let geometry, mesh;
+    const material = new THREE.MeshPhongMaterial({ flatShading: true, vertexColors: true, shininess: 100 });
 
-    const sun = new THREE.DirectionalLight(0xffffff, params.helderheid);
-    sun.position.set(5, 10, 5);
-    scene.add(sun);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.8));
-
-    const mixer = document.getElementById('mixer');
-    function addChannel(id, label, type, min, max, step) {
-        const chan = document.createElement('div');
-        chan.className = 'channel';
-        chan.innerHTML = `<div class="label">${label}</div>`;
-        const input = document.createElement('input');
-        input.type = type;
-        input.value = params[id];
-        if(type === 'range') { input.min = min; input.max = max; input.step = step; }
-        input.oninput = (e) => { 
-            params[id] = type === 'range' ? parseFloat(e.target.value) : e.target.value;
-            if(id === 'helderheid') sun.intensity = params[id];
-        };
-        chan.appendChild(input);
-        mixer.appendChild(chan);
+    function initShapes(detail) {
+        if (mesh) { scene.remove(mesh); }
+        geometry = new THREE.IcosahedronGeometry(1, detail);
+        mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+        return geometry.attributes.position.array.slice();
     }
 
-    addChannel('kern', 'Innerlijk', 'color');
-    addChannel('piek', 'Uiterlijk', 'color');
-    addChannel('basis', 'Grootte', 'range', 0.5, 2, 0.1);
-    addChannel('draagvlak', 'Draagvlak', 'range', 0.2, 2, 0.05);
-    addChannel('evenwicht', 'Evenwicht', 'range', -0.6, 0.6, 0.05);
-    addChannel('complexiteit', 'Complexiteit', 'range', 1, 20, 0.2);
-    addChannel('scherpte', 'Scherpte', 'range', 0.1, 5, 0.1); // Slider effectiever gemaakt
-    addChannel('beheersing', 'Beheersing', 'range', 0, 1, 0.05);
-    addChannel('hartslag', 'Hartslag', 'range', 0, 8, 0.1);
-    addChannel('spanning', 'Spanning', 'range', 0, 0.5, 0.01);
-    addChannel('draai', 'Turbulentie', 'range', 0, 0.05, 0.001);
-    addChannel('helderheid', 'Gloed', 'range', 0, 4, 0.1);
+    // --- LOCAL STORAGE & INPUT HANDLERS ---
+    const controls = document.querySelectorAll('#mixer input');
+    
+    function saveSettings() {
+        const settings = {};
+        controls.forEach(el => settings[el.dataset.key] = el.value);
+        localStorage.setItem('mixedFeelings_v3', JSON.stringify(settings));
+    }
 
+    function loadSettings() {
+        const saved = JSON.parse(localStorage.getItem('mixedFeelings_v3')) || DEFAULTS;
+        controls.forEach(el => el.value = saved[el.dataset.key]);
+    }
+
+    document.getElementById('reset-btn').onclick = () => {
+        localStorage.removeItem('mixedFeelings_v3');
+        loadSettings();
+    };
+
+    controls.forEach(el => el.addEventListener('input', saveSettings));
+
+    loadSettings();
+    let lastDetail = parseInt(document.getElementById('val-complex').value);
+    let orig = initShapes(lastDetail);
     let time = 0;
+
     function animate() {
         requestAnimationFrame(animate);
-        time += 0.02 * params.hartslag;
-        const pos = mesh.geometry.attributes.position.array;
-        const colors = new Float32Array(pos.length);
-        const c1 = new THREE.Color(params.kern);
-        const c2 = new THREE.Color(params.piek);
+
+        const vInt = parseFloat(document.getElementById('val-intens').value);
+        const vSne = parseFloat(document.getElementById('val-snel').value);
+        const vCre = parseFloat(document.getElementById('val-creatief').value);
+        const vCom = parseInt(document.getElementById('val-complex').value);
+
+        if (vCom !== lastDetail) {
+            orig = initShapes(vCom);
+            lastDetail = vCom;
+        }
+
+        time += 0.005 + (vSne * 0.1);
+
+        const pos = geometry.attributes.position.array;
+        const cCol = new Float32Array(pos.length);
+        const colBase = new THREE.Color(document.getElementById('col-complex').value);
+        const colInt = new THREE.Color(document.getElementById('col-intens').value);
+        const colCre = new THREE.Color(document.getElementById('col-creatief').value);
 
         for (let i = 0; i < pos.length; i += 3) {
-            let vx = originalPositions[i], vy = originalPositions[i+1], vz = originalPositions[i+2];
-
-            // Betere noise voor scherpte
-            const ch = params.beheersing * 5.0;
-            let n = Math.sin(vx * params.complexiteit + time * 0.1) * 
-                    Math.cos(vy * params.complexiteit + time * 0.1) * 
-                    Math.sin(vz * params.complexiteit);
-
-            // DE TRUC: Gebruik een hoge exponent om de punten 'naaldachtig' te maken
-            // Hoe hoger 'scherpte', hoe dunner de basis van de piek
-            let spike = Math.pow(Math.max(0, n), 1.0 + params.scherpte * 2.0) * (params.scherpte * 1.5);
+            const v = new THREE.Vector3(orig[i], orig[i+1], orig[i+2]).normalize();
             
-            let vibe = Math.sin(time + vx * 10) * params.spanning;
-            const r = (params.basis + (vy * params.evenwicht)) + spike + vibe;
+            // Onregelmatigheid / Creativiteit (Noise)
+            const noise = Math.sin(v.x * 3 + time) * Math.cos(v.y * 3 + time * 0.5) * Math.sin(v.z * 3);
+            const randomness = (Math.sin(v.x * 10 + time) * Math.cos(v.z * 10)) * vCre;
             
-            const v = new THREE.Vector3(vx, vy * params.draagvlak, vz).normalize().multiplyScalar(r);
-            pos[i] = v.x; pos[i+1] = v.y; pos[i+2] = v.z;
-
-            let m = spike * 0.8;
-            const finalC = new THREE.Color().copy(c1).lerp(c2, Math.min(1, m));
-            colors[i] = finalC.r; colors[i+1] = finalC.g; colors[i+2] = finalC.b;
+            const r = 1 + (Math.pow(Math.max(0, noise), 3) * vInt * 2.5) + (randomness * 0.4);
+            
+            pos[i] = v.x * r; pos[i+1] = v.y * r; pos[i+2] = v.z * r;
+            
+            // Kleurmix
+            const m = new THREE.Color(colBase).lerp(colInt, Math.max(0, noise) * vInt);
+            m.lerp(colCre, Math.abs(randomness) * 2);
+            cCol[i] = m.r; cCol[i+1] = m.g; cCol[i+2] = m.b;
         }
         
-        mesh.geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        mesh.geometry.attributes.position.needsUpdate = true;
-        mesh.geometry.computeVertexNormals();
-        mesh.rotation.y += params.draai;
+        geometry.attributes.position.needsUpdate = true;
+        geometry.setAttribute('color', new THREE.BufferAttribute(cCol, 3));
+        geometry.computeVertexNormals();
+
+        mesh.rotation.y += 0.002 + (vSne * 0.03);
         renderer.render(scene, camera);
     }
+
     animate();
+
     window.onresize = () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
+        const w = container.clientWidth;
+        const h = container.clientHeight;
+        camera.aspect = w / h;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize(w, h);
     };
 </script>
 </body>
