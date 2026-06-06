@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mixed Feelings</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNDUsMTUgQzYwLDEwIDgwLDI1IDg1LDQ1IEM5MCw2NSA3MCw4NSA1MCw4NSBDMjUsODUgMTAsNzAgMTUsNDUgQzIwLDIwIDMwLDIwIDQ1LDE1IFoiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNDUsMTUgQzYwLDEwIDgwLDI1IDg1LD[...]
 
     <style>
         /* ==========================================================================
@@ -265,14 +265,19 @@
         }
 
         .article-container {
-            max-width: 720px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
         }
 
         .article-header {
             border-bottom: 1px solid var(--brand-black);
             padding-bottom: 16px;
             margin-bottom: 32px;
+            grid-column: 1;
         }
 
         .article-category {
@@ -304,20 +309,19 @@
         }
 
         .article-body {
-            column-count: 2;
-            column-gap: 40px;
             font-family: var(--font-serif);
             font-size: 14px; 
             line-height: 1.6;
             color: #444; 
             text-align: justify;
+            grid-column: 1;
         }
 
         .article-profile-img {
             width: 100%;
-            max-width: 240px;
-            float: right;
-            margin: 0 0 20px 30px;
+            height: auto;
+            grid-column: 2;
+            grid-row: 1 / 3;
             filter: grayscale(100%) contrast(1.1);
             mix-blend-mode: multiply;
         }
@@ -388,12 +392,23 @@
             }
 
             /* Redactionele elementen herschikken op mobiel */
-            .article-body { column-count: 1; }
+            .article-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .article-header {
+                grid-column: 1;
+            }
+            
+            .article-body {
+                grid-column: 1;
+            }
+            
             .article-profile-img { 
-                float: none; 
-                margin: 0 auto 20px auto; 
-                display: block; 
-                max-width: 100%; 
+                grid-column: 1;
+                grid-row: auto;
+                max-width: 100%;
             }
             
             /* Paneel herschikken */
@@ -494,14 +509,13 @@
                 <h1 class="article-title">About Renée Hulshoff</h1>
             </div>
             <div class="article-body">
-                <img src="profielfoto_R.jpg" alt="Renée Hulshoff" class="article-profile-img">
+                <p>After leaving the Grafisch Lyceum without a diploma (because I was 17 and not interested in any form of institutionalized education), I started working in photography and repairing [...]
                 
-                <p>After leaving the Grafisch Lyceum without a diploma (because I was 17 and not interested in any form of institutionalized education), I started working in photography and repairing cameras and projectors. In 2006, older, wiser, and better equipped to navigate the boundaries of institutional education, I enrolled in the ArtScience interfaculty program of the Royal Academy of Art (KABK) and the Royal Conservatory (KonCon) in The Hague. I graduated in 2010, worked for a while at a craft beer bar, and found my place at a small visual communications agency where I worked for nearly ten years as a researcher and concept developer for film and the visual communication of complex topics. During that period, I also completed a post-HBO program in data visualization at Hogeschool Utrecht (HU). In 2023, I made a career change; driven among other things by a fascination with the system behind how people learn, and a hunger to keep learning myself, I began the teacher training program for elementary education (PABO), which I recently completed at Hogeschool Rotterdam (HR).</p>
+                <p>Currently, in addition to my role as a teacher in the grades 6/7/8 of a Montessori elementary school, I am working on my own visual art projects, such as Cerebrum Infografica and Mi[...]
                 
-                <p>Currently, in addition to my role as a teacher in the grades 6/7/8 of a Montessori elementary school, I am working on my own visual art projects, such as Cerebrum Infografica and Mixed Feelings.</p>
-                
-                <p>Everything I do stems from a broad curiosity about how things work and how they are interconnected. At the moment, my interest is focused on questions surrounding complexity and emergence—and whether such a thing as coincidence exists. I am also fascinated by human interaction and neurodiversity, and the intriguing question of how different brains can reinforce one another. In addition, I find metacognition (how our thinking and perception actually work), the hard logic behind mechanics and systems in motion, and the underlying motivations behind human behavior downright fascinating.</p>
+                <p>Everything I do stems from a broad curiosity about how things work and how they are interconnected. At the moment, my interest is focused on questions surrounding complexity and eme[...]
             </div>
+            <img src="profielfoto_R.jpg" alt="Renée Hulshoff" class="article-profile-img">
         </article>
     </div>
 
@@ -512,11 +526,11 @@
                 <h1 class="article-title">Cerebrum Infografica <span class="article-subtitle">(working title)</span></h1>
             </div>
             <div class="article-body">
-                <p>Cerebrum Infografica is an ongoing project—taking the form of a book and an interactive scroll story—that emerged from a fascination with the inner workings of the human brain, metacognition, and the dynamics between neurodiversity and neurotypicality. It bridges the gap between analytical data visualization and conceptual art, exploring the complex ways in which different brains perceive, process, and structure information.</p>
+                <p>Cerebrum Infografica is an ongoing project—taking the form of a book and an interactive scroll story—that emerged from a fascination with the inner workings of the human brain, [...]
                 
-                <p>Through infographics and clear data visualizations, Cerebrum Infografica sheds light on the mechanisms of how we think, how we learn, and how diverse brains communicate. It translates the invisible, internal logic of both neurodivergent and neurotypical thinking into something tangible and readable.</p>
+                <p>Through infographics and clear data visualizations, Cerebrum Infografica sheds light on the mechanisms of how we think, how we learn, and how diverse brains communicate. It translat[...]
                 
-                <p>Ultimately, the project aims to offer clarity and insight to people with all types of brains. It is an invitation to view our cognitive landscapes not as a checklist of differences, but as a fascinating puzzle—a system in which different ways of thinking not only coexist but can actively reinforce one another.</p>
+                <p>Ultimately, the project aims to offer clarity and insight to people with all types of brains. It is an invitation to view our cognitive landscapes not as a checklist of differences,[...]
             </div>
         </article>
     </div>
