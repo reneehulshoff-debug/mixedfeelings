@@ -3,253 +3,692 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIXED FEELINGS - 3.0</title>
-    <link rel="icon" href="https://fav.farm/💠" />
+    <title>Mixed Feelings</title>
+    
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNDUsMTUgQzYwLDEwIDgwLDI1IDg1LDQ1IEM5MCw2NSA3MCw4NSA1MCw4NSBDMjUsODUgMTAsNzAgMTUsNDUgQzIwLDIwIDMwLDIwIDQ1LDE1IFoiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=">
+
     <style>
+        /* ==========================================================================
+           EDITORIAL STYLING (Typografie, Menu & Redactionele Pagina's)
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Georgia:ital,wght@0,400;0,700;1,400&family=Libre+Franklin:wght@400;700;900&display=swap');
+
         :root {
-            --bg: #000000;
-            --panel: rgba(15, 15, 15, 0.9);
-            --text: #ffffff;
-            --accent: #ffffff;
+            --brand-black: #1a1a1a;
+            --brand-grey: #f4f4f4;
+            --brand-border: #d5d5d5;
+            --font-serif: 'Georgia', serif;
+            --font-sans: 'Libre Franklin', sans-serif;
         }
-        body { margin: 0; overflow: hidden; background: var(--bg); font-family: 'Courier New', monospace; color: var(--text); }
-        
-        /* Layout container */
-        #main-container {
-            display: flex;
-            flex-direction: row;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-serif);
+            background-color: #fafafa;
+            color: var(--brand-black);
+            overflow: hidden;
             height: 100vh;
-            width: 100vw;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        #ui-layer {
-            width: 300px;
-            z-index: 10;
-            background: var(--panel);
-            backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255,255,255,0.1);
-            padding: 30px;
+        /* Navigatiebalk bovenin */
+        .editorial-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-bottom: 1px solid var(--brand-border);
+            z-index: 200;
+            padding: 14px 30px;
             display: flex;
-            flex-direction: column;
-            overflow-y: auto;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        #canvas-container {
-            flex-grow: 1;
-            position: relative;
-        }
-
-        #title-tag {
-            font-size: 24px;
-            font-weight: bold;
-            letter-spacing: 4px;
+        .editorial-logo {
+            font-family: var(--font-sans);
+            font-weight: 900;
+            font-size: 16px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 5px;
-        }
-
-        #mixer {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .channel { display: flex; flex-direction: column; gap: 8px; }
-        .label-row { display: flex; justify-content: space-between; align-items: center; }
-        .label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: bold; }
-        
-        input[type=range] {
-            appearance: none; background: #333; height: 2px; outline: none; width: 100%;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            appearance: none; width: 14px; height: 14px; background: var(--accent); border-radius: 0; cursor: pointer;
-        }
-
-        input[type=color] {
-            background: none; border: 1px solid #666; width: 30px; height: 18px; cursor: pointer; padding: 0;
-        }
-
-        button#reset-btn {
-            margin-top: 10px;
-            background: none;
-            border: 1px solid #444;
-            color: #888;
-            padding: 8px;
+            color: var(--brand-black);
+            text-decoration: none;
             cursor: pointer;
-            font-family: inherit;
+        }
+
+        .editorial-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .editorial-nav a {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #777;
+            letter-spacing: 0.8px;
+            padding-bottom: 4px;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .editorial-nav a:hover, .editorial-nav a.active {
+            color: var(--brand-black);
+            border-bottom: 2px solid var(--brand-black);
+        }
+
+        /* Strak Katern/Sidebar Panel (Sliders) */
+        .control-panel {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 320px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--brand-border);
+            border-top: 4px solid var(--brand-black);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            z-index: 100;
+            padding: 24px;
+            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .panel-title {
+            font-family: var(--font-sans);
+            font-weight: 900;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            color: var(--brand-black);
+            border-bottom: 1px solid var(--brand-black);
+            padding-bottom: 10px;
+        }
+
+        /* Sliders */
+        .control-group {
+            margin-bottom: 18px;
+        }
+
+        .control-group label {
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            color: var(--brand-black);
+        }
+
+        .control-group label span {
+            font-weight: 400;
+            color: #666;
+            text-transform: none;
+            font-family: var(--font-serif);
+            font-style: italic;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            background: var(--brand-border);
+            height: 2px;
+            outline: none;
+            border-radius: 2px;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--brand-black);
+            cursor: pointer;
+            border-radius: 0%;
+            transition: transform 0.1s;
+        }
+        
+        .control-group input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        #rSlider::-webkit-slider-thumb { background: #e74c3c; }
+        #gSlider::-webkit-slider-thumb { background: #2ecc71; }
+        #bSlider::-webkit-slider-thumb { background: #3498db; }
+
+        /* Hint tekst rechts onderin */
+        .interaction-hint {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-family: var(--font-sans);
+            font-weight: 700;
             font-size: 10px;
             text-transform: uppercase;
-            transition: all 0.2s;
+            letter-spacing: 1.5px;
+            color: #999;
+            z-index: 90;
+            pointer-events: none;
+            transition: opacity 0.3s;
         }
-        button#reset-btn:hover { color: #fff; border-color: #fff; }
 
-        /* Mobiele aanpassingen */
+        /* REDACTIONELE PAGINA OVERLAY */
+        .page-overlay {
+            position: fixed;
+            top: 51px;
+            left: 0;
+            width: 100%;
+            height: calc(100vh - 51px);
+            background-color: #fafafa;
+            z-index: 150;
+            overflow-y: auto;
+            padding: 80px 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        .page-overlay.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .article-container {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .article-header {
+            border-bottom: 1px solid var(--brand-black);
+            padding-bottom: 16px;
+            margin-bottom: 32px;
+        }
+
+        .article-category {
+            font-family: var(--font-sans);
+            font-weight: 900;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #b32d2d;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .article-title {
+            font-family: var(--font-serif);
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--brand-black);
+            letter-spacing: -0.5px;
+        }
+
+        .article-subtitle {
+            font-size: 0.55em;
+            font-style: italic;
+            color: #666;
+            letter-spacing: 0;
+            vertical-align: middle;
+            font-weight: 400;
+        }
+
+        .article-body {
+            column-count: 2;
+            column-gap: 40px;
+            font-family: var(--font-serif);
+            font-size: 14px; /* Kleinere, subtielere tekst */
+            line-height: 1.6;
+            color: #444; /* Zachtere kleurwaarde voor tekst */
+            text-align: justify;
+        }
+
+        /* Profielfoto styling in de body */
+        .article-profile-img {
+            width: 100%;
+            max-width: 240px;
+            float: right;
+            margin: 0 0 20px 30px;
+            filter: grayscale(100%) contrast(1.1); /* Lichte tijdschrift-look */
+            mix-blend-mode: multiply; /* Past mooi in de achtergrond */
+        }
+
+        .article-body p {
+            margin-bottom: 18px;
+        }
+
+        /* Eerste alinea styling: Niet bold meer, net iets groter */
+        .article-body p:first-of-type {
+            font-size: 15px; 
+            font-weight: 400;
+            line-height: 1.6;
+            color: var(--brand-black);
+        }
+
         @media (max-width: 768px) {
-            #main-container { flex-direction: column; }
-            #ui-layer { 
-                width: 100%; 
-                height: auto; 
-                order: 2; 
-                border-right: none; 
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 20px;
+            .article-body { column-count: 1; }
+            .article-profile-img { 
+                float: none; 
+                margin: 0 auto 20px auto; 
+                display: block; 
+                max-width: 100%; 
             }
-            #canvas-container { height: 50vh; order: 1; }
-            #title-tag { font-size: 18px; margin-bottom: 15px; }
+            .control-panel { width: calc(100% - 60px); }
         }
 
-        canvas { display: block; }
+        /* Canvas */
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            cursor: grab;
+        }
+        
+        canvas:active {
+            cursor: grabbing;
+        }
     </style>
 </head>
 <body>
 
-<div id="main-container">
-    <div id="ui-layer">
-        <div id="title-tag">MIXED FEELINGS</div>
-        <div id="mixer">
-            <div class="channel">
-                <div class="label-row"><div class="label">Intens</div><input type="color" id="col-intens" data-key="cI"></div>
-                <input type="range" id="val-intens" data-key="vI" min="0" max="1" step="0.01">
-            </div>
-            <div class="channel">
-                <div class="label-row"><div class="label">Snel</div><input type="color" id="col-snel" data-key="cS"></div>
-                <input type="range" id="val-snel" data-key="vS" min="0" max="1" step="0.01">
-            </div>
-            <div class="channel">
-                <div class="label-row"><div class="label">Creatief</div><input type="color" id="col-creatief" data-key="cC"></div>
-                <input type="range" id="val-creatief" data-key="vC" min="0" max="1" step="0.01">
-            </div>
-            <div class="channel">
-                <div class="label-row"><div class="label">Complex</div><input type="color" id="col-complex" data-key="cX"></div>
-                <input type="range" id="val-complex" data-key="vX" min="1" max="8" step="1">
-            </div>
-            <button id="reset-btn">Reset naar standaard</button>
+    <header class="editorial-header">
+        <a class="editorial-logo" id="logoLink">Renée Hulshoff</a>
+        <nav class="editorial-nav">
+            <a id="navMixed" class="active">Mixed Feelings</a>
+            <a id="navCerebrum">Cerebrum Infografica</a>
+            <a id="navAbout">About</a>
+        </nav>
+    </header>
+
+    <div class="control-panel" id="controlPanel">
+        <div class="panel-title">Mixed Feelings</div>
+        
+        <div class="control-group">
+            <label>Intensiteit</label>
+            <input type="range" id="intensity" min="100" max="1500" step="20" value="800">
+        </div>
+
+        <div class="control-group">
+            <label>Snelheid</label>
+            <input type="range" id="speed" min="0.1" max="3" step="0.1" value="1.2">
+        </div>
+
+        <div class="control-group">
+            <label>Complexiteit</label>
+            <input type="range" id="complexity" min="0" max="100" step="1" value="35">
+        </div>
+
+        <div class="control-group">
+            <label>Creativiteit</label>
+            <input type="range" id="creativity" min="0" max="100" step="1" value="25">
+        </div>
+
+        <div class="control-group" style="margin-top: 25px;">
+            <label>R <span>(denken)</span></label>
+            <input type="range" id="rSlider" min="0" max="255" step="1" value="20">
+        </div>
+
+        <div class="control-group">
+            <label>G <span>(voelen)</span></label>
+            <input type="range" id="gSlider" min="0" max="255" step="1" value="58">
+        </div>
+
+        <div class="control-group">
+            <label>B <span>(zijn)</span></label>
+            <input type="range" id="bSlider" min="0" max="255" step="1" value="100">
         </div>
     </div>
-    <div id="canvas-container"></div>
-</div>
 
-<script type="importmap">
-    { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
-</script>
+    <div class="interaction-hint" id="hintText">klick 'n drag</div>
 
-<script type="module">
-    import * as THREE from 'three';
+    <div class="page-overlay" id="aboutPage">
+        <article class="article-container">
+            <div class="article-header">
+                <div class="article-category">Biografie</div>
+                <h1 class="article-title">About Renée Hulshoff</h1>
+            </div>
+            <div class="article-body">
+               
+                
+                <p>After leaving the Grafisch Lyceum without a diploma (because I was 17 and not interested in any form of institutionalized education), I started working in photography and repairing cameras and projectors. In 2006 (older, wiser, and better equipped to navigate the boundaries of institutional education), I enrolled in the ArtScience interfaculty program of the Royal Academy of Art (KABK) and the Royal Conservatory (KonCon) in The Hague. I graduated in 2010, worked for a while at a craft beer bar, and found my place at a small visual communications agency where I worked for nearly ten years as a researcher and concept developer for film and the visual communication of complex topics. During that period, I also completed a post-HBO program in data visualization at Hogeschool Utrecht (HU). In 2023, I made a career change; driven among other things by a fascination with the system behind how people learn, and a hunger to keep learning myself, I began the teacher training program for elementary education (PABO), which I recently completed at Hogeschool Rotterdam (HR).</p>
+                
+                <p>Currently, in addition to my role as a teacher in the grades 6/7/8 of a Montessori elementary school, I am working on my own visual art projects, such as Cerebrum Infografica and Mixed Feelings.</p>
+                
+                <p>Everything I do stems from a broad curiosity about how things work and how they are interconnected. At the moment, my interest is focused on questions surrounding complexity and emergence—and whether such a thing as coincidence exists. I am also fascinated by human interaction and neurodiversity, and the intriguing question of how different brains can reinforce one another. In addition, I find metacognition (how our thinking and perception actually work), the hard logic behind mechanics and systems in motion, and the underlying motivations behind human behavior downright fascinating.</p>
+            </div>
+        </article>
+    </div>
 
-    const DEFAULTS = {
-        vI: 0.4, vS: 0.2, vC: 0.3, vX: 4,
-        cI: '#ff66aa', cS: '#66ffff', cC: '#ffffaa', cX: '#ffffff'
-    };
+    <div class="page-overlay" id="cerebrumPage">
+        <article class="article-container">
+            <div class="article-header">
+                <div class="article-category">Project</div>
+                <h1 class="article-title">Cerebrum Infografica <span class="article-subtitle">(working title)</span></h1>
+            </div>
+            <div class="article-body">
+                <p>Cerebrum Infografica is an ongoing project—taking the form of a book and an interactive scroll story—that emerged from a fascination with the inner workings of the human brain, metacognition, and the dynamics between neurodiversity and neurotypicality. It bridges the gap between analytical data visualization and conceptual art, exploring the complex ways in which different brains perceive, process, and structure information.</p>
+                
+                <p>Through infographics and clear data visualizations, Cerebrum Infografica sheds light on the mechanisms of how we think, how we learn, and how diverse brains communicate. It translates the invisible, internal logic of both neurodivergent and neurotypical thinking into something tangible and readable.</p>
+                
+                <p>Ultimately, the project aims to offer clarity and insight to people with all types of brains. It is an invitation to view our cognitive landscapes not as a checklist of differences, but as a fascinating puzzle—a system in which different ways of thinking not only coexist but can actively reinforce one another.</p>
+            </div>
+        </article>
+    </div>
 
-    const container = document.getElementById('canvas-container');
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#000000');
-    
-    const camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 0, 3.5);
+    <canvas id="blobCanvas"></canvas>
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
-
-    const p1 = new THREE.PointLight(0xffffff, 20); p1.position.set(5, 5, 5); scene.add(p1);
-    const p2 = new THREE.PointLight(0xffffff, 15); p2.position.set(-5, -5, 5); scene.add(p2);
-    scene.add(new THREE.AmbientLight(0x444444));
-
-    let geometry, mesh;
-    const material = new THREE.MeshPhongMaterial({ flatShading: true, vertexColors: true, shininess: 100 });
-
-    function initShapes(detail) {
-        if (mesh) { scene.remove(mesh); }
-        geometry = new THREE.IcosahedronGeometry(1, detail);
-        mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
-        return geometry.attributes.position.array.slice();
-    }
-
-    // --- LOCAL STORAGE & INPUT HANDLERS ---
-    const controls = document.querySelectorAll('#mixer input');
-    
-    function saveSettings() {
-        const settings = {};
-        controls.forEach(el => settings[el.dataset.key] = el.value);
-        localStorage.setItem('mixedFeelings_v3', JSON.stringify(settings));
-    }
-
-    function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('mixedFeelings_v3')) || DEFAULTS;
-        controls.forEach(el => el.value = saved[el.dataset.key]);
-    }
-
-    document.getElementById('reset-btn').onclick = () => {
-        localStorage.removeItem('mixedFeelings_v3');
-        loadSettings();
-    };
-
-    controls.forEach(el => el.addEventListener('input', saveSettings));
-
-    loadSettings();
-    let lastDetail = parseInt(document.getElementById('val-complex').value);
-    let orig = initShapes(lastDetail);
-    let time = 0;
-
-    function animate() {
-        requestAnimationFrame(animate);
-
-        const vInt = parseFloat(document.getElementById('val-intens').value);
-        const vSne = parseFloat(document.getElementById('val-snel').value);
-        const vCre = parseFloat(document.getElementById('val-creatief').value);
-        const vCom = parseInt(document.getElementById('val-complex').value);
-
-        if (vCom !== lastDetail) {
-            orig = initShapes(vCom);
-            lastDetail = vCom;
-        }
-
-        time += 0.005 + (vSne * 0.1);
-
-        const pos = geometry.attributes.position.array;
-        const cCol = new Float32Array(pos.length);
-        const colBase = new THREE.Color(document.getElementById('col-complex').value);
-        const colInt = new THREE.Color(document.getElementById('col-intens').value);
-        const colCre = new THREE.Color(document.getElementById('col-creatief').value);
-
-        for (let i = 0; i < pos.length; i += 3) {
-            const v = new THREE.Vector3(orig[i], orig[i+1], orig[i+2]).normalize();
-            
-            // Onregelmatigheid / Creativiteit (Noise)
-            const noise = Math.sin(v.x * 3 + time) * Math.cos(v.y * 3 + time * 0.5) * Math.sin(v.z * 3);
-            const randomness = (Math.sin(v.x * 10 + time) * Math.cos(v.z * 10)) * vCre;
-            
-            const r = 1 + (Math.pow(Math.max(0, noise), 3) * vInt * 2.5) + (randomness * 0.4);
-            
-            pos[i] = v.x * r; pos[i+1] = v.y * r; pos[i+2] = v.z * r;
-            
-            // Kleurmix
-            const m = new THREE.Color(colBase).lerp(colInt, Math.max(0, noise) * vInt);
-            m.lerp(colCre, Math.abs(randomness) * 2);
-            cCol[i] = m.r; cCol[i+1] = m.g; cCol[i+2] = m.b;
-        }
+    <script>
+        /* ==========================================================================
+           ROUTING & MENU INTERACTIE
+           ========================================================================== */
+        const navMixed = document.getElementById('navMixed');
+        const navCerebrum = document.getElementById('navCerebrum');
+        const navAbout = document.getElementById('navAbout');
+        const logoLink = document.getElementById('logoLink');
         
-        geometry.attributes.position.needsUpdate = true;
-        geometry.setAttribute('color', new THREE.BufferAttribute(cCol, 3));
-        geometry.computeVertexNormals();
+        const controlPanel = document.getElementById('controlPanel');
+        const hintText = document.getElementById('hintText');
+        const aboutPage = document.getElementById('aboutPage');
+        const cerebrumPage = document.getElementById('cerebrumPage');
+        const canvasElement = document.getElementById('blobCanvas');
 
-        mesh.rotation.y += 0.002 + (vSne * 0.03);
-        renderer.render(scene, camera);
-    }
+        function showPage(page) {
+            [navMixed, navCerebrum, navAbout].forEach(link => link.classList.remove('active'));
+            
+            if (page === 'mixed') {
+                navMixed.classList.add('active');
+                aboutPage.classList.remove('is-visible');
+                cerebrumPage.classList.remove('is-visible');
+                
+                controlPanel.style.opacity = '1';
+                controlPanel.style.transform = 'translateY(0)';
+                controlPanel.style.pointerEvents = 'auto';
+                
+                hintText.style.opacity = '1';
+                canvasElement.style.pointerEvents = 'auto';
+            } else if (page === 'about') {
+                navAbout.classList.add('active');
+                aboutPage.classList.add('is-visible');
+                cerebrumPage.classList.remove('is-visible');
+                
+                controlPanel.style.opacity = '0';
+                controlPanel.style.transform = 'translateY(20px)';
+                controlPanel.style.pointerEvents = 'none';
+                
+                hintText.style.opacity = '0';
+                canvasElement.style.pointerEvents = 'none'; 
+            } else if (page === 'cerebrum') {
+                navCerebrum.classList.add('active');
+                aboutPage.classList.remove('is-visible');
+                cerebrumPage.classList.add('is-visible');
+                
+                controlPanel.style.opacity = '0';
+                controlPanel.style.transform = 'translateY(20px)';
+                controlPanel.style.pointerEvents = 'none';
+                
+                hintText.style.opacity = '0';
+                canvasElement.style.pointerEvents = 'none';
+            }
+        }
 
-    animate();
+        navMixed.addEventListener('click', () => showPage('mixed'));
+        logoLink.addEventListener('click', () => showPage('mixed'));
+        navAbout.addEventListener('click', () => showPage('about'));
+        navCerebrum.addEventListener('click', () => showPage('cerebrum'));
 
-    window.onresize = () => {
-        const w = container.clientWidth;
-        const h = container.clientHeight;
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
-        renderer.setSize(w, h);
-    };
-</script>
+        /* ==========================================================================
+           PRO SOFT-BODY PHYSICS ENGINE
+           ========================================================================== */
+        const canvas = document.getElementById('blobCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+
+        let width, height, centerX, centerY, maxRadius;
+
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
+            
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+            
+            ctx.scale(dpr, dpr);
+            
+            centerX = width / 2;
+            centerY = height / 2;
+            maxRadius = Math.min(width, height) * 0.28;
+            
+            generatePoints();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        const config = {
+            intensity: parseInt(document.getElementById('intensity').value),
+            speed: parseFloat(document.getElementById('speed').value),
+            complexity: parseInt(document.getElementById('complexity').value),
+            creativity: parseInt(document.getElementById('creativity').value),
+            r: parseInt(document.getElementById('rSlider').value),
+            g: parseInt(document.getElementById('gSlider').value),
+            b: parseInt(document.getElementById('bSlider').value)
+        };
+
+        ['intensity', 'speed', 'complexity', 'creativity', 'rSlider', 'gSlider', 'bSlider'].forEach(id => {
+            document.getElementById(id).addEventListener('input', (e) => {
+                let val = parseFloat(e.target.value);
+                if(id === 'rSlider') config.r = val;
+                else if(id === 'gSlider') config.g = val;
+                else if(id === 'bSlider') config.b = val;
+                else config[id] = val;
+                
+                if (id === 'intensity') generatePoints();
+            });
+        });
+
+        const mouse = { x: 0, y: 0, isDragging: false };
+
+        function updateMouse(e, isTouch = false) {
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+            mouse.x = clientX;
+            mouse.y = clientY;
+        }
+
+        window.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            mouse.isDragging = true;
+            updateMouse(e);
+        });
+        window.addEventListener('mousemove', (e) => { if(mouse.isDragging) updateMouse(e); });
+        window.addEventListener('mouseup', () => mouse.isDragging = false);
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            mouse.isDragging = true;
+            updateMouse(e, true);
+        }, { passive: true });
+        window.addEventListener('touchmove', (e) => {
+            if (mouse.isDragging) {
+                updateMouse(e, true);
+                e.preventDefault(); 
+            }
+        }, { passive: false });
+        window.addEventListener('touchend', () => mouse.isDragging = false);
+
+        let allPoints = [];
+        let shellCount = 0;
+
+        class Point {
+            constructor(angle, targetRadius, isShell) {
+                this.angle = angle;
+                this.targetRadius = targetRadius;
+                this.isShell = isShell;
+                this.x = centerX + Math.cos(angle) * targetRadius;
+                this.y = centerY + Math.sin(angle) * targetRadius;
+                this.vx = 0;
+                this.vy = 0;
+                this.seed = Math.random() * 1000;
+            }
+
+            update(time, dt) {
+                let wave = Math.sin(time + this.seed) * 40 + Math.cos(time * 0.4 + this.seed * 1.5) * 20;
+                if (!this.isShell) wave *= (this.targetRadius / (maxRadius || 1));
+
+                let currentTargetRadius = this.targetRadius + wave;
+                let idealX = centerX + Math.cos(this.angle) * currentTargetRadius;
+                let idealY = centerY + Math.sin(this.angle) * currentTargetRadius;
+
+                this.vx += (idealX - this.x) * 0.05 * dt;
+                this.vy += (idealY - this.y) * 0.05 * dt;
+
+                if (mouse.isDragging) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distanceSq = dx * dx + dy * dy;
+                    let influenceRadius = 280;
+                    
+                    if (distanceSq < influenceRadius * influenceRadius) {
+                        let distance = Math.sqrt(distanceSq);
+                        if (distance > 0) {
+                            let force = Math.pow((influenceRadius - distance) / influenceRadius, 2);
+                            this.vx += (dx / distance) * force * 15 * dt;
+                            this.vy += (dy / distance) * force * 15 * dt;
+                        }
+                    }
+                }
+
+                this.vx *= Math.pow(0.85, dt);
+                this.vy *= Math.pow(0.85, dt);
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+            }
+        }
+
+        function generatePoints() {
+            allPoints = [];
+            shellCount = Math.floor(config.intensity * 0.5);
+            let internalCount = config.intensity - shellCount;
+
+            for (let i = 0; i < shellCount; i++) {
+                let angle = (i / shellCount) * Math.PI * 2;
+                allPoints.push(new Point(angle, maxRadius, true));
+            }
+
+            for (let i = 0; i < internalCount; i++) {
+                let angle = Math.random() * Math.PI * 2;
+                let radius = Math.sqrt(Math.random()) * (maxRadius * 0.95); 
+                allPoints.push(new Point(angle, radius, false));
+            }
+        }
+
+        let timeTracker = 0;
+        let lastTime = 0;
+
+        function animate(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let dt = (timestamp - lastTime) / 16.666;
+            if (dt > 3) dt = 3;
+            lastTime = timestamp;
+
+            timeTracker += 0.01 * config.speed * dt;
+
+            ctx.fillStyle = '#fafafa';
+            ctx.fillRect(0, 0, width, height);
+
+            const colorStroke = `rgb(${config.r}, ${config.g}, ${config.b})`;
+            const colorFill = `rgba(${config.r}, ${config.g}, ${config.b}, 0.04)`;
+
+            for(let i=0; i<allPoints.length; i++){
+                allPoints[i].update(timeTracker, dt);
+            }
+
+            // 1. Vloeiende Omtrek met nóg dunnere rand
+            if (shellCount > 0) {
+                ctx.beginPath();
+                let startX = (allPoints[0].x + allPoints[shellCount - 1].x) / 2;
+                let startY = (allPoints[0].y + allPoints[shellCount - 1].y) / 2;
+                ctx.moveTo(startX, startY);
+
+                let curveStep = shellCount > 400 ? 3 : 1;
+                for (let i = 0; i < shellCount; i += curveStep) {
+                    let cp = allPoints[i];
+                    let np = allPoints[(i + curveStep) % shellCount];
+                    ctx.quadraticCurveTo(cp.x, cp.y, (cp.x + np.x) / 2, (cp.y + np.y) / 2);
+                }
+                
+                ctx.closePath();
+                ctx.fillStyle = colorFill;
+                ctx.fill();
+                ctx.strokeStyle = colorStroke;
+                ctx.lineWidth = 0.5; /* Dunne outline toegepast */
+                ctx.stroke();
+            }
+
+            // 2. Complexiteit Lijnen
+            if (config.complexity > 0 && shellCount > 0) {
+                ctx.strokeStyle = `rgba(${config.r}, ${config.g}, ${config.b}, ${config.complexity / 400})`;
+                ctx.lineWidth = 0.8;
+                let baseStep = Math.floor(shellCount / 10);
+                let stepDivider = Math.max(1, Math.floor((100 - config.complexity) / 4));
+                
+                ctx.beginPath();
+                for (let i = 0; i < shellCount; i += stepDivider * 2) {
+                    let targetIndex = (i + baseStep) % shellCount;
+                    ctx.moveTo(allPoints[i].x, allPoints[i].y);
+                    ctx.lineTo(allPoints[targetIndex].x, allPoints[targetIndex].y);
+                }
+                ctx.stroke();
+            }
+
+            // 3. Creativiteit Lijnen
+            if (config.creativity > 0 && shellCount > 0) {
+                ctx.strokeStyle = `rgba(${config.r}, ${config.g}, ${config.b}, ${config.creativity / 800})`;
+                let densityStep = Math.max(3, Math.floor((100 - config.creativity) / 2));
+                let reach = Math.floor((config.creativity / 100) * 10) + 1;
+
+                ctx.beginPath();
+                for (let i = 0; i < shellCount; i += densityStep) {
+                    for (let j = 1; j <= reach; j++) {
+                        let targetIndex = (i + j * 5) % shellCount;
+                        ctx.moveTo(allPoints[i].x, allPoints[i].y);
+                        ctx.lineTo(allPoints[targetIndex].x, allPoints[targetIndex].y);
+                    }
+                }
+                ctx.stroke();
+            }
+
+            // 4. Stippen Tekenen
+            let pointSize = config.intensity > 800 ? 1.5 : 2.5; 
+            ctx.fillStyle = colorStroke;
+            
+            ctx.beginPath();
+            for(let i=0; i<allPoints.length; i++) {
+                let p = allPoints[i];
+                let r = p.isShell ? pointSize : pointSize * 0.75;
+                ctx.moveTo(p.x + r, p.y);
+                ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+            }
+            ctx.fill();
+
+            requestAnimationFrame(animate);
+        }
+
+        resizeCanvas();
+        requestAnimationFrame(animate);
+    </script>
 </body>
 </html>
