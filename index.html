@@ -240,7 +240,7 @@
         }
 
         /* ==========================================================================
-           REDACTIONELE PAGINA OVERLAY (About & Cerebrum)
+           REDACTIONELE PAGINA OVERLAY (About & Cerebrum & Pleximo)
            ========================================================================== */
         .page-overlay {
             position: fixed;
@@ -331,6 +331,23 @@
             font-weight: 400;
             line-height: 1.6;
             color: var(--brand-black);
+        }
+
+        /* Fotogalerij voor Pleximo (Foto's onder elkaar onderaan de pagina) */
+        .article-gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 35px;
+            clear: both;
+        }
+
+        .article-gallery-img {
+            width: 100%;
+            height: auto;
+            filter: grayscale(100%) contrast(1.1);
+            mix-blend-mode: multiply;
+            display: block;
         }
 
         /* ==========================================================================
@@ -436,6 +453,7 @@
 
         <nav class="editorial-nav" id="editorialNav">
             <a id="navMixed" class="active">Mixed Feelings</a>
+            <a id="navPleximo">Pleximo</a>
             <a id="navCerebrum">Cerebrum Infografica</a>
             <a id="navAbout">About</a>
         </nav>
@@ -487,6 +505,27 @@
 
     <div class="interaction-hint" id="hintText">klick 'n drag</div>
 
+    <div class="page-overlay" id="pleximoPage">
+        <article class="article-container">
+            <div class="article-header">
+                <div class="article-category">Project</div>
+                <h1 class="article-title">Pleximo</h1>
+            </div>
+            <div class="article-body">
+                <p>Pleximo (2010) is een modulair-mechanische installatie, opgebouwd uit 32 kleine boxen die elk zijn uitgerust met een eigen mechanisch systeem und onderling met elkaar verbonden kunnen worden. Doordat de installatie voor elke tentoonstelling anders wordt opgesteld, verschilt de resulterende compositie van ritme, licht en geluid telkens weer.</p>
+
+                <p>Het werk vormt een intrigerend spel tussen het mechanische en het organische. De dekseltjes, die op en neer tikken om het ritme te verklanken, zijn gevuld met vloeistof. Omdat de boxjes van onderaf met ledlicht worden verlicht, ontstaat er op het scherm boven de installatie een dynamische projectie. Dit visuele schouwspel brengt de mechanische onderdelen en de organische bewegingen samen: elke 'klik' ebt visueel na en dooft uit als een rimpeling in het water.</p>
+            </div>
+
+            <div class="article-gallery">
+                <img src="pleximo1.webp" alt="Pleximo Installatie Detaille 1" class="article-gallery-img">
+                <img src="pleximo2.webp" alt="Pleximo Installatie Detaille 2" class="article-gallery-img">
+                <img src="pleximo3.webp" alt="Pleximo Installatie Detaille 3" class="article-gallery-img">
+                <img src="pleximo4.webp" alt="Pleximo Installatie Detaille 4" class="article-gallery-img">
+            </div>
+        </article>
+    </div>
+
     <div class="page-overlay" id="aboutPage">
         <article class="article-container">
             <div class="article-header">
@@ -508,7 +547,6 @@
 <p>Momenteel werk ik, naast mijn rol als leerkracht in de bovenbouw van een montessorischool, aan eigen projecten zoals Cerebrum Infografica en Mixed Feelings. Alles wat ik doe, komt voort uit een brede nieuwsgierigheid naar hoe dingen werken en hoe ze met elkaar samenhangen. Momenteel richt mijn interesse zich op vraagstukken rondom complexiteit en emergentie. Daarnaast ben ik gefascineerd door menselijke interactie, metacognitie, neurodiversiteit en de vraag hoe verschillende breinen elkaar kunnen versterken. De onderliggende motivaties achter menselijk gedrag vind ik fascinerend.</p>
 
  <img src="profielfoto_R.jpg" alt="Renée Hulshoff" class="article-profile-img">
-</p>
             </div>
         </article>
     </div>
@@ -520,7 +558,7 @@
                 <h1 class="article-title">Cerebrum Infografica <span class="article-subtitle">(working title)</span></h1>
             </div>
             <div class="article-body">
-                <p>Cerebrum Infografica is een work in progress dat tot leven gaat komen in de vorm van een boek en een interactieve scroll story. Het idee is ontstaan uit een fascinatie voor de werking van het menselijk brein, metacognitie en de dynamiek tussen neurodiversiteit en neurotypiciteit. 
+                <p>Cerebrum Infografica is een work in progress dat tot leven gaat komen in de vorm van een boek en een interactieve scroll story. Het idee is ontstaan uit een fascinatie voor de werking van het menselijk brein, metacognitie en de dynamiek tussen neurodiversiteit and neurotypiciteit. 
 Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en verkent de complexe manieren waarop verschillende breinen informatie waarnemen, verwerken en structureren.</p>
 
 <p>Aan de hand van infographics en heldere datavisualisaties werpt Cerebrum Infografica licht op de mechanismen achter hoe we denken en hoe we leren. Het vertaalt universele wetten en de bijzondere variaties van onze breinen naar iets tastbaars en leesbaars.</p>
@@ -536,12 +574,14 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
            UI & MENU LOGICA (Inclusief Mobiel Inklappen)
            ========================================================================== */
         const navMixed = document.getElementById('navMixed');
+        const navPleximo = document.getElementById('navPleximo');
         const navCerebrum = document.getElementById('navCerebrum');
         const navAbout = document.getElementById('navAbout');
         const logoLink = document.getElementById('logoLink');
         
         const controlPanel = document.getElementById('controlPanel');
         const hintText = document.getElementById('hintText');
+        const pleximoPage = document.getElementById('pleximoPage');
         const aboutPage = document.getElementById('aboutPage');
         const cerebrumPage = document.getElementById('cerebrumPage');
         const canvasElement = document.getElementById('blobCanvas');
@@ -563,7 +603,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
             panelToggleIcon.textContent = controlPanel.classList.contains('is-collapsed') ? '+' : '−';
         });
 
-        // Zorg dat paneel standaard is ingeklapt op mobiel (beter zicht op blob)
+        // Zorg dat paneel standaard is ingeklapt op mobiel
         if (window.innerWidth <= 768) {
             controlPanel.classList.add('is-collapsed');
             panelToggleIcon.textContent = '+';
@@ -576,10 +616,11 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 editorialNav.classList.remove('is-open');
             }
 
-            [navMixed, navCerebrum, navAbout].forEach(link => link.classList.remove('active'));
+            [navMixed, navPleximo, navCerebrum, navAbout].forEach(link => link.classList.remove('active'));
             
             if (page === 'mixed') {
                 navMixed.classList.add('active');
+                pleximoPage.classList.remove('is-visible');
                 aboutPage.classList.remove('is-visible');
                 cerebrumPage.classList.remove('is-visible');
                 
@@ -589,8 +630,21 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 
                 hintText.style.opacity = '1';
                 canvasElement.style.pointerEvents = 'auto';
+            } else if (page === 'pleximo') {
+                navPleximo.classList.add('active');
+                pleximoPage.classList.add('is-visible');
+                aboutPage.classList.remove('is-visible');
+                cerebrumPage.classList.remove('is-visible');
+                
+                controlPanel.style.opacity = '0';
+                controlPanel.style.transform = 'translateY(20px)';
+                controlPanel.style.pointerEvents = 'none';
+                
+                hintText.style.opacity = '0';
+                canvasElement.style.pointerEvents = 'none';
             } else if (page === 'about') {
                 navAbout.classList.add('active');
+                pleximoPage.classList.remove('is-visible');
                 aboutPage.classList.add('is-visible');
                 cerebrumPage.classList.remove('is-visible');
                 
@@ -602,6 +656,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 canvasElement.style.pointerEvents = 'none'; 
             } else if (page === 'cerebrum') {
                 navCerebrum.classList.add('active');
+                pleximoPage.classList.remove('is-visible');
                 aboutPage.classList.remove('is-visible');
                 cerebrumPage.classList.add('is-visible');
                 
@@ -616,6 +671,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
 
         navMixed.addEventListener('click', () => showPage('mixed'));
         logoLink.addEventListener('click', () => showPage('mixed'));
+        navPleximo.addEventListener('click', () => showPage('pleximo'));
         navAbout.addEventListener('click', () => showPage('about'));
         navCerebrum.addEventListener('click', () => showPage('cerebrum'));
 
@@ -678,9 +734,8 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
             mouse.y = clientY;
         }
 
-        // Voorkom muis drag op de UI
         window.addEventListener('mousedown', (e) => {
-            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
             mouse.isDragging = true;
             updateMouse(e);
         });
@@ -688,7 +743,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
         window.addEventListener('mouseup', () => mouse.isDragging = false);
 
         window.addEventListener('touchstart', (e) => {
-            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
             mouse.isDragging = true;
             updateMouse(e, true);
         }, { passive: true });
@@ -787,7 +842,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 allPoints[i].update(timeTracker, dt);
             }
 
-            // 1. Vloeiende Omtrek (Dunnere outline)
+            // 1. Vloeiende Omtrek
             if (shellCount > 0) {
                 ctx.beginPath();
                 let startX = (allPoints[0].x + allPoints[shellCount - 1].x) / 2;
@@ -805,7 +860,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 ctx.fillStyle = colorFill;
                 ctx.fill();
                 ctx.strokeStyle = colorStroke;
-                ctx.lineWidth = 0.5; /* Zeer dunne, verfijnde outline */
+                ctx.lineWidth = 0.5;
                 ctx.stroke();
             }
 
