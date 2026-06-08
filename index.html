@@ -240,7 +240,7 @@
         }
 
         /* ==========================================================================
-           REDACTIONELE PAGINA OVERLAY (About & Cerebrum & Pleximo)
+           REDACTIONELE PAGINA OVERLAY (About & Cerebrum & Pleximo & Design)
            ========================================================================== */
         .page-overlay {
             position: fixed;
@@ -351,6 +351,67 @@
         }
 
         /* ==========================================================================
+           DESIGN PAGE GRID & IMAGE ROLL-OVER STYLING
+           ========================================================================== */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .grid-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: var(--brand-grey);
+            border: 1px solid var(--brand-border);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%) contrast(1.1);
+            mix-blend-mode: multiply;
+            transition: filter 0.3s ease;
+        }
+
+        .grid-item:hover img {
+            filter: grayscale(0%) contrast(1.0);
+        }
+
+        /* Grote weergave roll-over overlay */
+        .image-preview-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(250, 250, 250, 0.98);
+            z-index: 300;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .image-preview-overlay.is-active {
+            opacity: 1;
+        }
+
+        .image-preview-overlay img {
+            max-width: 90%;
+            max-height: 85%;
+            object-fit: contain;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            filter: grayscale(100%) contrast(1.1); /* Sluit aan bij de artstyle */
+        }
+
+        /* ==========================================================================
            RESPONSIVE (MOBIEL)
            ========================================================================== */
         @media (max-width: 768px) {
@@ -424,6 +485,10 @@
             .interaction-hint {
                 display: none; /* Te druk op mobiel */
             }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Canvas */
@@ -454,7 +519,8 @@
         <nav class="editorial-nav" id="editorialNav">
             <a id="navMixed" class="active">Mixed Feelings</a>
             <a id="navPleximo">Pleximo</a>
-            <a id="navCerebrum">Cerebrum Infografica</a>
+            <a id="navDesign">Design</a>
+            <a id="navCerebrum">Cerebrum Infographica</a>
             <a id="navAbout">About</a>
         </nav>
     </header>
@@ -526,6 +592,35 @@
         </article>
     </div>
 
+    <!-- NIEUW: DESIGN PAGINA OVERLAY MET IMAGE GRID -->
+    <div class="page-overlay" id="designPage">
+        <article class="article-container">
+            <div class="article-header">
+                <div class="article-category">Portfolio</div>
+                <h1 class="article-title">Design</h1>
+            </div>
+            <div class="article-body" style="column-count: 1; margin-bottom: 20px;">
+                <p>Grafisch Ontwerp & Brand Identity: Raven Bone Hill
+Voor de ambachtelijke bierbrouwerij Raven Bone Hill heb ik diverse bieretiketten ontworpen. De uitdaging lag in het vertalen van de unieke smaakprofielen en de eigenzinnige merknaam naar een ijzersterk en herkenbaar visueel concept.
+Omdat elk bier een eigen karakter en smaakprofiel heeft, richten de diverse bieren zich ook op diverse doelgroepen. De vormgeving is daarom per etiket strategisch afgestemd op de specifieke consument: van de toegankelijke speciaalbierdrinker tot de avontuurlijke craft beer-kenner.
+.</p>
+            </div>
+            
+            <div class="image-grid">
+                <!-- Vervang de 'src' attributen met je eigen afbeeldingen -->
+                <div class="grid-item"><img src="design1.webp" alt="Design Project 1"></div>
+                <div class="grid-item"><img src="design2.webp" alt="Design Project 2"></div>
+                <div class="grid-item"><img src="design3.webp" alt="Design Project 3"></div>
+                <div class="grid-item"><img src="design4.webp" alt="Design Project 4"></div>
+            </div>
+        </article>
+    </div>
+
+    <!-- NIEUW: FULLSCREEN PREVIEW VOOR DE ROLL-OVER -->
+    <div class="image-preview-overlay" id="imagePreviewOverlay">
+        <img src="" id="previewImage" alt="Preview">
+    </div>
+
     <div class="page-overlay" id="aboutPage">
         <article class="article-container">
             <div class="article-header">
@@ -533,7 +628,7 @@
                 <h1 class="article-title">About Renée Hulshoff</h1>
             </div>
             <div class="article-body">
-                              
+                                       
                 <p>Nadat ik het Grafisch Lyceum zonder diploma had verlaten —omdat ik 17 was en destijds geen interesse had in welke vorm van institutioneel onderwijs dan ook— ging ik aan de slag in de fotografie en met het repareren van camera’s en projectoren. </p>
 
 <p>In 2006, inmiddels ouder, wijzer en beter toegerust om binnen de grenzen van het onderwijs te navigeren, begon ik aan de Interfaculty ArtScience (image and sound) aan de Koninklijke Academie van Beeldende Kunsten (KABK) en het Koninklijk Conservatorium (KonCon) in Den Haag. Ik studeerde af in 2010. Daarna nam ik deel aan verschillende groepstentoonstellingen, maar ik vond het moeilijk om mijn eigen werk te verkopen. </p>
@@ -544,7 +639,7 @@
 
 <p>In 2023 maakte ik een carrièreswitch; gedreven door onder andere een fascinatie voor het systeem achter leren en een honger om zelf te blijven leren, werd ik zij-instromer in het onderwijs en rondde ik in twee jaar de PABO aan de Hogeschool Rotterdam (HR) af. De ironie dat ik nu zelf onderdeel ben geworden van het institutionele onderwijs, amuseert mij wel.</p>
 
-<p>Momenteel werk ik, naast mijn rol als leerkracht in de bovenbouw van een montessorischool, aan eigen projecten zoals Cerebrum Infografica en Mixed Feelings. Alles wat ik doe, komt voort uit een brede nieuwsgierigheid naar hoe dingen werken en hoe ze met elkaar samenhangen. Momenteel richt mijn interesse zich op vraagstukken rondom complexiteit en emergentie. Daarnaast ben ik gefascineerd door menselijke interactie, metacognitie, neurodiversiteit en de vraag hoe verschillende breinen elkaar kunnen versterken. De onderliggende motivaties achter menselijk gedrag vind ik fascinerend.</p>
+<p>Momenteel werk ik, naast mijn rol als leerkracht in de bovenbouw van een montessorischool, aan eigen projecten zoals Cerebrum Infographica en Mixed Feelings. Alles wat ik doe, komt voort uit een brede nieuwsgierigheid naar hoe dingen werken en hoe ze met elkaar samenhangen. Momenteel richt mijn interesse zich op vraagstukken rondom complexiteit en emergentie. Daarnaast ben ik gefascineerd door menselijke interactie, metacognitie, neurodiversiteit en de vraag hoe verschillende breinen elkaar kunnen versterken. De onderliggende motivaties achter menselijk gedrag vind ik fascinerend.</p>
 
  <img src="profielfoto_R.jpg" alt="Renée Hulshoff" class="article-profile-img">
             </div>
@@ -555,15 +650,15 @@
         <article class="article-container">
             <div class="article-header">
                 <div class="article-category">Project</div>
-                <h1 class="article-title">Cerebrum Infografica <span class="article-subtitle">(working title)</span></h1>
+                <h1 class="article-title">Cerebrum Infographica <span class="article-subtitle">(working title)</span></h1>
             </div>
             <div class="article-body">
-                <p>Cerebrum Infografica is een work in progress dat tot leven gaat komen in de vorm van een boek en een interactieve scroll story. Het idee is ontstaan uit een fascinatie voor de werking van het menselijk brein, metacognitie en de dynamiek tussen neurodiversiteit and neurotypiciteit. 
+                <p>Cerebrum Infographica is een work in progress dat tot leven gaat komen in de vorm van een boek en een interactieve scroll story. Het idee is ontstaan uit een fascinatie voor de werking van het menselijk brein, metacognitie en de dynamiek tussen neurodiversiteit and neurotypiciteit. 
 Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en verkent de complexe manieren waarop verschillende breinen informatie waarnemen, verwerken en structureren.</p>
 
-<p>Aan de hand van infographics en heldere datavisualisaties werpt Cerebrum Infografica licht op de mechanismen achter hoe we denken en hoe we leren. Het vertaalt universele wetten en de bijzondere variaties van onze breinen naar iets tastbaars en leesbaars.</p>
+<p>Aan de hand van infographics en heldere datavisualisaties werpt Cerebrum Infographica licht op de mechanismen achter hoe we denken en hoe we leren. Het vertaalt universele wetten en de bijzondere variaties van onze breinen naar iets tastbaars en leesbaars.</p>
 
-<p>Het project heeft als uiteindelijke doel om elkaar beter te begrijpen. Het is een uitnodiging om onze cognitieve landschappen niet te zien als een checklist van verschillen, maar als een fascinerende puzzel—een systeem waarin verschillende manieren van denken niet alleen naast elkaar bestaan, maar elkaar ook actief versterken.</p>            </div>
+<p>Het project heeft als uiteindelijke doel om elkaar beter te begrijpen. Het is een uitnodivation om onze cognitieve landschappen niet te zien als een checklist van verschillen, maar als een fascinerende puzzel—een systeem waarin verschillende manieren van denken niet alleen naast elkaar bestaan, maar elkaar ook actief versterken.</p>            </div>
         </article>
     </div>
 
@@ -575,6 +670,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
            ========================================================================== */
         const navMixed = document.getElementById('navMixed');
         const navPleximo = document.getElementById('navPleximo');
+        const navDesign = document.getElementById('navDesign');
         const navCerebrum = document.getElementById('navCerebrum');
         const navAbout = document.getElementById('navAbout');
         const logoLink = document.getElementById('logoLink');
@@ -582,6 +678,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
         const controlPanel = document.getElementById('controlPanel');
         const hintText = document.getElementById('hintText');
         const pleximoPage = document.getElementById('pleximoPage');
+        const designPage = document.getElementById('designPage');
         const aboutPage = document.getElementById('aboutPage');
         const cerebrumPage = document.getElementById('cerebrumPage');
         const canvasElement = document.getElementById('blobCanvas');
@@ -616,13 +713,16 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 editorialNav.classList.remove('is-open');
             }
 
-            [navMixed, navPleximo, navCerebrum, navAbout].forEach(link => link.classList.remove('active'));
+            [navMixed, navPleximo, navDesign, navCerebrum, navAbout].forEach(link => link.classList.remove('active'));
             
+            // Verberg alle overlays standaard
+            pleximoPage.classList.remove('is-visible');
+            designPage.classList.remove('is-visible');
+            aboutPage.classList.remove('is-visible');
+            cerebrumPage.classList.remove('is-visible');
+
             if (page === 'mixed') {
                 navMixed.classList.add('active');
-                pleximoPage.classList.remove('is-visible');
-                aboutPage.classList.remove('is-visible');
-                cerebrumPage.classList.remove('is-visible');
                 
                 controlPanel.style.opacity = '1';
                 controlPanel.style.transform = 'translateY(0)';
@@ -630,50 +730,57 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
                 
                 hintText.style.opacity = '1';
                 canvasElement.style.pointerEvents = 'auto';
-            } else if (page === 'pleximo') {
-                navPleximo.classList.add('active');
-                pleximoPage.classList.add('is-visible');
-                aboutPage.classList.remove('is-visible');
-                cerebrumPage.classList.remove('is-visible');
-                
+            } else {
+                // Generieke logica voor alle redactionele/overlay pagina's
                 controlPanel.style.opacity = '0';
                 controlPanel.style.transform = 'translateY(20px)';
                 controlPanel.style.pointerEvents = 'none';
                 
                 hintText.style.opacity = '0';
                 canvasElement.style.pointerEvents = 'none';
-            } else if (page === 'about') {
-                navAbout.classList.add('active');
-                pleximoPage.classList.remove('is-visible');
-                aboutPage.classList.add('is-visible');
-                cerebrumPage.classList.remove('is-visible');
-                
-                controlPanel.style.opacity = '0';
-                controlPanel.style.transform = 'translateY(20px)';
-                controlPanel.style.pointerEvents = 'none';
-                
-                hintText.style.opacity = '0';
-                canvasElement.style.pointerEvents = 'none'; 
-            } else if (page === 'cerebrum') {
-                navCerebrum.classList.add('active');
-                pleximoPage.classList.remove('is-visible');
-                aboutPage.classList.remove('is-visible');
-                cerebrumPage.classList.add('is-visible');
-                
-                controlPanel.style.opacity = '0';
-                controlPanel.style.transform = 'translateY(20px)';
-                controlPanel.style.pointerEvents = 'none';
-                
-                hintText.style.opacity = '0';
-                canvasElement.style.pointerEvents = 'none';
+
+                if (page === 'pleximo') {
+                    navPleximo.classList.add('active');
+                    pleximoPage.classList.add('is-visible');
+                } else if (page === 'design') {
+                    navDesign.classList.add('active');
+                    designPage.classList.add('is-visible');
+                } else if (page === 'about') {
+                    navAbout.classList.add('active');
+                    aboutPage.classList.add('is-visible');
+                } else if (page === 'cerebrum') {
+                    navCerebrum.classList.add('active');
+                    cerebrumPage.classList.add('is-visible');
+                }
             }
         }
 
         navMixed.addEventListener('click', () => showPage('mixed'));
         logoLink.addEventListener('click', () => showPage('mixed'));
         navPleximo.addEventListener('click', () => showPage('pleximo'));
+        navDesign.addEventListener('click', () => showPage('design'));
         navAbout.addEventListener('click', () => showPage('about'));
         navCerebrum.addEventListener('click', () => showPage('cerebrum'));
+
+        /* ==========================================================================
+           NIEUW: ROLL-OVER LOGICA VOOR AFBEELDINGEN
+           ========================================================================== */
+        const previewOverlay = document.getElementById('imagePreviewOverlay');
+        const previewImage = document.getElementById('previewImage');
+        const gridItems = document.querySelectorAll('.grid-item img');
+
+        gridItems.forEach(img => {
+            img.addEventListener('mouseenter', (e) => {
+                previewImage.src = e.target.src;
+                previewImage.alt = e.target.alt;
+                previewOverlay.classList.add('is-active');
+            });
+
+            img.addEventListener('mouseleave', () => {
+                previewOverlay.classList.remove('is-active');
+            });
+        });
+
 
         /* ==========================================================================
            PRO SOFT-BODY PHYSICS ENGINE
@@ -735,7 +842,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
         }
 
         window.addEventListener('mousedown', (e) => {
-            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || designPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
             mouse.isDragging = true;
             updateMouse(e);
         });
@@ -743,7 +850,7 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
         window.addEventListener('mouseup', () => mouse.isDragging = false);
 
         window.addEventListener('touchstart', (e) => {
-            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || designPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
             mouse.isDragging = true;
             updateMouse(e, true);
         }, { passive: true });
