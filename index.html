@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mixed Feelings</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNDUsMTUgQzYwLDEwIDgwLDI1IDg1LD[...]
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cGF0aCBkPSJNNDUsMTUgQzYwLDEwIDgwLDI1IDg1LDQ1IEM5MCw2NSA3MCw4NSA1MCw4NSBDMjUsODUgMTAsNzAgMTUsNDUgQzIwLDIwIDMwLDIwIDQ1LDE1IFoiIGZpbGw9IiMxYTFhMWEiLz48L3N2Zz4=">
 
     <style>
         /* ==========================================================================
@@ -345,10 +345,9 @@
         .article-gallery-img {
             width: 100%;
             height: auto;
-            filter: none; 
-            mix-blend-mode: normal; 
+            filter: grayscale(100%) contrast(1.1);
+            mix-blend-mode: multiply;
             display: block;
-    
         }
 
         /* ==========================================================================
@@ -506,122 +505,6 @@
         canvas:active {
             cursor: grabbing;
         }
-
-        /* Timeline styling - break out of columns */
-        .reneehulshoff-timeline-wrapper {
-            column-span: all;
-            max-width: 100%;
-            margin: 40px 0;
-            padding: 0 15px;
-            background-color: #ffffff;
-            color: #2c2c2c;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-title {
-            font-size: 22px;
-            font-weight: 400;
-            letter-spacing: 0.8px;
-            margin-bottom: 35px;
-            color: #2c2c2c;
-            text-transform: uppercase;
-            border-bottom: 1px solid #e5e5e5;
-            padding-bottom: 12px;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline {
-            position: relative;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline::before {
-            content: '';
-            position: absolute;
-            top: 5px;
-            bottom: 5px;
-            left: 16px;
-            width: 1px;
-            background-color: #e5e5e5;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-item {
-            position: relative;
-            margin-bottom: 28px;
-            padding-left: 45px;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-badge {
-            position: absolute;
-            top: 4px;
-            left: 8px;
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            background-color: #ffffff;
-            border: 1px solid #cccccc;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-sizing: border-box;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-item.completed .timeline-badge {
-            background-color: #8da499;
-            border-color: #8da499;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-item.completed .timeline-badge::after {
-            content: '✓';
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: bold;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-item.upcoming .timeline-badge {
-            background-color: #ffffff;
-            border-color: #dcdcdc;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-dot-current {
-            position: relative;
-            height: 0;
-            margin-top: -16px;
-            margin-bottom: 20px;
-            list-style: none;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-dot-current::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background-color: #d9534f;
-            z-index: 3;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-heading h3 {
-            margin: 0 0 5px 0;
-            font-size: 15px;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            color: #2c2c2c;
-        }
-
-        .reneehulshoff-timeline-wrapper .timeline-body p {
-            margin: 0;
-            font-size: 13.5px;
-            color: #6e6e6e;
-            line-height: 1.6;
-        }
     </style>
 </head>
 <body>
@@ -695,9 +578,9 @@
                 <h1 class="article-title">Pleximo</h1>
             </div>
             <div class="article-body">
-                <p>Pleximo (2010) is een modulair-mechanische installatie, opgebouwd uit 32 kleine boxen die elk zijn uitgerust met een eigen mechanisch systeem en die onderling met elkaar verbonden k[...]
+                <p>Pleximo (2010) is een modulair-mechanische installatie, opgebouwd uit 32 kleine boxen die elk zijn uitgerust met een eigen mechanisch systeem en die onderling met elkaar verbonden kunnen worden. Doordat de installatie voor elke tentoonstelling anders wordt opgesteld, verschilt de resulterende compositie van ritme, licht en geluid telkens weer.</p>
 
-                <p>Het werk vormt een spel tussen het mechanische en het organische. De dekseltjes, die op en neer tikken om het ritme te verklanken, zijn gevuld met vloeistof. Omdat de boxjes van ond[...]
+                <p>Het werk vormt een spel tussen het mechanische en het organische. De dekseltjes, die op en neer tikken om het ritme te verklanken, zijn gevuld met vloeistof. Omdat de boxjes van onderaf met ledlicht worden verlicht, ontstaat er op het scherm boven de installatie een dynamische projectie. Dit visuele spel brengt de mechanische onderdelen en de organische bewegingen samen: elke plastic 'klik' ebt -visueel- na en dooft uit als een rimpeling in het water.</p>
             </div>
 
             <div class="article-gallery">
@@ -716,8 +599,8 @@
                 <h1 class="article-title">Design</h1>
             </div>
             <div class="article-body">
-                <p>Grafisch Ontwerp & Brand Identity: Raven Bone Hill. Voor de ambachtelijke bierbrouwerij Raven Bone Hill heb ik diverse bieretiketten ontworpen. De uitdaging lag in het vertalen van [...]
-                <p>Omdat elk bier een eigen karakter en smaakprofiel heeft, richten de diverse bieren zich ook op diverse doelgroepen. De vormgeving is daarom per etiket strategisch afgestemd op de sp[...]
+                <p>Grafisch Ontwerp & Brand Identity: Raven Bone Hill. Voor de ambachtelijke bierbrouwerij Raven Bone Hill heb ik diverse bieretiketten ontworpen. De uitdaging lag in het vertalen van de unieke smaakprofielen en de eigenzinnige merknaam naar een ijzersterk en herkenbaar visueel concept.</p>
+                <p>Omdat elk bier een eigen karakter en smaakprofiel heeft, richten de diverse bieren zich ook op diverse doelgroepen. De vormgeving is daarom per etiket strategisch afgestemd op de specifieke consument: van de toegankelijke speciaalbierdrinker tot de avontuurlijke craft beer-kenner.</p>
             </div>
             
             <div class="image-grid">
@@ -741,18 +624,18 @@
             </div>
             <div class="article-body">
                                        
-                <p>In 2000 verliet ik het Grafisch Lyceum zonder diploma — Ik was 17 en had geen enkele interesse in welke vorm van institutioneel onderwijs dan ook— Ik ging ik aan de slag in de f[...]
+                <p>In 2000 verliet ik het Grafisch Lyceum zonder diploma — Ik was 17 en had geen interesse enkel interesse in welke vorm van institutioneel onderwijs dan ook— Ik ging ik aan de slag in de fotografie en specialiseerde me in het repareren van camera’s en projectoren. </p>
 
-<p>In 2006, inmiddels ouder, wijzer en beter toegerust om binnen de grenzen van het onderwijs te navigeren, begon ik aan de Interfaculty ArtScience (image and sound) aan de Koninklijke Academie van Be[...]
+<p>In 2006, inmiddels ouder, wijzer en beter toegerust om binnen de grenzen van het onderwijs te navigeren, begon ik aan de Interfaculty ArtScience (image and sound) aan de Koninklijke Academie van Beeldende Kunsten (KABK) en het Koninklijk Conservatorium (KonCon) in Den Haag. Ik studeerde af in 2010. Daarna nam ik deel aan verschillende groepstentoonstellingen, maar ik vond het moeilijk om mijn eigen werk te verkopen. </p>
 
-<p>Ik werkte een paar jaar in een speciaalbiercafé, waar ik een poging deed tot bierbrouwen maar daar had ik geen geduld voor. Beter was ik in het vormgeven van de etiketten. Gelukkig kon ik die vaar[...]
+<p>Ik werkte een paar jaar in een speciaalbiercafé, waar ik een poging deed tot bierbrouwen maar daar had ik geen geduld voor. Beter was ik in het vormgeven van de etiketten. Gelukkig kon ik die vaardigheid goed inzetten bij het ontwerpen van de etiketten and merchandise voor Raven Bone Hill Brouwers. </p>
 
-<p>In diezelfde tijd vond ik mijn plek bij een klein bureau voor visuele communicatie, waar ik bijna tien jaar als researcher en conceptontwikkelaar heb gewerkt. Ik hield me bezig met de meest uiteenl[...]
+<p>In diezelfde tijd vond ik mijn plek bij een klein bureau voor visuele communicatie, waar ik bijna tien jaar als researcher en conceptontwikkelaar heb gewerkt. Ik hield me bezig met de meest uiteenlopende onderwerpen en complexe thema’s waarvoor ik inhoudelijke concepten en scenario’s schreef. Ook volgde ik in die periode een post-HBO Datavisualisatie aan de Hogeschool Utrecht (HU).</p>
 
-<p>In 2023 maakte ik een carrièreswitch; gedreven door onder andere een fascinatie voor het systeem achter leren en een honger om zelf te blijven leren, werd ik zij-instromer in het onderwijs en rond[...]
+<p>In 2023 maakte ik een carrièreswitch; gedreven door onder andere een fascinatie voor het systeem achter leren en een honger om zelf te blijven leren, werd ik zij-instromer in het onderwijs en rondde in twee jaar de PABO aan de Hogeschool Rotterdam (HR) af. De ironie dat ik nu zelf onderdeel ben geworden van het institutionele onderwijs, amuseert mij wel.</p>
 
-<p>Momenteel werk ik, naast mijn rol als leerkracht in de bovenbouw van een montessorischool, aan eigen projecten zoals Cerebrum Infographica en Mixed Feelings. Alles wat ik doe, komt voort uit een br[...]
-Mijn interesses richten zich nu op vraagstukken rondom complexiteit en emergentie. Daarnaast ben ik gefascineerd door menselijke interactie, metacognitie, neurodiversiteit en de vraag hoe verschillend[...]
+<p>Momenteel werk ik, naast mijn rol als leerkracht in de bovenbouw van een montessorischool, aan eigen projecten zoals Cerebrum Infographica en Mixed Feelings. Alles wat ik doe, komt voort uit een brede nieuwsgierigheid naar hoe dingen werken and hoe ze met elkaar samenhangen. 
+Mijn interesse richten zich nu op vraagstukken rondom complexiteit en emergentie. Daarnaast ben ik gefascineerd door menselijke interactie, metacognitie, neurodiversiteit en de vraag hoe verschillende breinen elkaar kunnen versterken. De onderliggende motivaties achter menselijk gedrag vind ik fascinerend.</p>
 
  <img src="profielfoto_R.jpg" alt="Renée Hulshoff" class="article-profile-img">
             </div>
@@ -766,147 +649,15 @@ Mijn interesses richten zich nu op vraagstukken rondom complexiteit en emergenti
                 <h1 class="article-title">Cerebrum Infographica <span class="article-subtitle">(working title)</span></h1>
             </div>
             <div class="article-body">
-                <p>Cerebrum Infographica is een work in progress dat tot leven gaat komen in de vorm van een boek en een interactieve scroll story. Het idee is ontstaan uit een fascinatie voor de werk[...]
+                <p>Cerebrum Infographica is een work in progress dat tot leven gaat komen in de vorm van een boek en een interactieve scroll story. Het idee is ontstaan uit een fascinatie voor de werking van het menselijk brein, metacognitie en de dynamiek tussen neurodiversiteit en neurotypiciteit. 
 Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en verkent de complexe manieren waarop verschillende breinen informatie waarnemen, verwerken en structureren.</p>
 
-<p>Aan de hand van infographics en heldere datavisualisaties werpt Cerebrum Infographica licht op de mechanismen achter hoe we denken en hoe we leren. Het vertaalt universele wetten en de bijzondere v[...]
+<p>Aan de hand van infographics en heldere datavisualisaties werpt Cerebrum Infographica licht op de mechanismen achter hoe we denken en hoe we leren. Het vertaalt universele wetten en de bijzondere variaties van onze breinen naar iets tastbaars en leesbaars.</p>
 
-<p>Het project heeft als uiteindelijke doel om elkaar beter te begrijpen. Het is een uitnodiging om onze cognitieve landschappen niet te zien als een checklist van verschillen, maar als een fascineren[...]
-<img src="cover.jpg" alt="Cerebrum Infographica Cover" style="width: 100%; height: auto; float: none; margin: 20px 0; filter: none; mix-blend-mode: normal; display: block; clear: both;">
-            </div>
-
-            <div class="reneehulshoff-timeline-wrapper">
-                <h2 class="timeline-title">Tijdspad</h2>
-                
-                <ul class="timeline">
-                    
-                    <!-- Fase 1: AFGEROND -->
-                    <li class="timeline-item completed">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>1 Inhoudelijke Basis</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Bestaande literatuur verzamelen en wetenschappelijke inzichten doorgronden om de scope te bepalen.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- SUBTIEL ROOD STIPJE TUSSEN FASE 1 EN 2 (DICHTER BIJ FASE 2) -->
-                    <li class="timeline-dot-current"></li>
-
-                    <!-- Fase 2 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>2 Project Structuur</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>De doelgroep definitief vaststellen, het eerste flatplan opzetten en de visuele stijlgids ontwerpen.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 3 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>3 Content</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>De eerste inhoudelijke opzet uitwerken om de overkoepelende rode draad strak te bewaken.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 4 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>4 Visueel Concept</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Eerste ruwe schetsen maken om te ontdekken hoe tekst en beeld elkaar organisch gaan versterken.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 5 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>5 Schrijven</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Het volledig uitschrijven van de hoofdstukken en het neerzetten van de juiste tone of voice.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 6 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>6 Visuele uitwerking</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>De schetsen omzetten in vector-infographics en de definitieve visuele compositie bepalen.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 7 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>7 Redactie & Validatie</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Kwaliteitsbewaking door kritische proeflezers en het onderwerpen van het manuscript aan een grondige, neurologische fact-check.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 8 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>8 Finetuning</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>Alle elementen samenvoegen in de lay-out, focussen op de fijne tekstcorrectie (copy-editing) en het optimaliseren van de paginaflow.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                    <!-- Fase 9 -->
-                    <li class="timeline-item upcoming">
-                        <div class="timeline-badge"></div>
-                        <div class="timeline-panel">
-                            <div class="timeline-heading">
-                                <h3>9 Publicatie</h3>
-                            </div>
-                            <div class="timeline-body">
-                                <p>De pre-press fase: bestanden technisch drukklaar maken, de kleurweergave controleren via een proefdruk en de uiteindelijke lancering.</p>
-                            </div>
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
+<p>Het project heeft als uiteindelijke doel om elkaar beter te begrijpen. Het is een uitnodiging om onze cognitieve landschappen niet te zien als een checklist van verschillen, maar als een fascinerende puzzel—een systeem waarin verschillende manieren van denken niet alleen naast elkaar bestaan, maar elkaar ook actief versterken.</p> 
+<img src="cover.jpg" alt="Cerebrum Infographica Cover" style="width: 100%; height: auto; float: none; margin: 20px 0; filter: none; mix-blend-mode: normal; display: block; clear: both;">         
+		</div>
         </article>
-    </div>
-
-    <div class="image-preview-overlay" id="imagePreviewOverlay">
-        <img src="" id="previewImage" alt="Preview">
     </div>
 
     <canvas id="blobCanvas"></canvas>
@@ -1010,150 +761,265 @@ Het slaat een brug tussen analytische datavisualisatie en conceptuele kunst, en 
         navCerebrum.addEventListener('click', () => showPage('cerebrum'));
 
         /* ==========================================================================
-           BLOB CANVAS LOGICA (Interactief SVG/Canvas element)
+           ROLL-OVER LOGICA VOOR AFBEELDINGEN (Met Fullcolor preview)
            ========================================================================== */
-        const canvas = document.getElementById('blobCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        // Color sliders
-        const rSlider = document.getElementById('rSlider');
-        const gSlider = document.getElementById('gSlider');
-        const bSlider = document.getElementById('bSlider');
-        const intensitySlider = document.getElementById('intensity');
-        const speedSlider = document.getElementById('speed');
-        const complexitySlider = document.getElementById('complexity');
-        const creativitySlider = document.getElementById('creativity');
-
-        let animationId;
-        let time = 0;
-
-        // Blob-tekening logica
-        function drawBlob() {
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const baseRadius = parseInt(intensitySlider.value);
-            const speed = parseFloat(speedSlider.value);
-            const complexity = parseInt(complexitySlider.value);
-            const creativity = parseInt(creativitySlider.value);
-
-            const r = parseInt(rSlider.value);
-            const g = parseInt(gSlider.value);
-            const b = parseInt(bSlider.value);
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-
-            ctx.beginPath();
-            const points = 30 + complexity;
-
-            for (let i = 0; i < points; i++) {
-                const angle = (i / points) * Math.PI * 2;
-                
-                // Meer organische, complexe berekening
-                const noise = Math.sin(time * speed * 0.005 + i * complexity * 0.01) * (creativity * 2);
-                const radius = baseRadius + noise;
-
-                const x = centerX + Math.cos(angle) * radius;
-                const y = centerY + Math.sin(angle) * radius;
-
-                if (i === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            }
-
-            ctx.closePath();
-            ctx.fill();
-            time++;
-
-            animationId = requestAnimationFrame(drawBlob);
-        }
-
-        drawBlob();
-
-        // Mouse drag interactiviteit
-        let isDragging = false;
-        let dragStartX = 0;
-        let dragStartY = 0;
-
-        canvas.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            dragStartX = e.clientX;
-            dragStartY = e.clientY;
-        });
-
-        canvas.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                const deltaX = e.clientX - dragStartX;
-                const deltaY = e.clientY - dragStartY;
-
-                const speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                const angle = Math.atan2(deltaY, deltaX);
-
-                const speedInfluence = Math.min(speed / 10, 3);
-                intensitySlider.value = Math.max(100, Math.min(1500, parseInt(intensitySlider.value) + speedInfluence * 20));
-
-                dragStartX = e.clientX;
-                dragStartY = e.clientY;
-            }
-        });
-
-        canvas.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
-
-        canvas.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
-
-        // Touch support
-        canvas.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            dragStartX = e.touches[0].clientX;
-            dragStartY = e.touches[0].clientY;
-        });
-
-        canvas.addEventListener('touchmove', (e) => {
-            if (isDragging) {
-                e.preventDefault();
-                const deltaX = e.touches[0].clientX - dragStartX;
-                const deltaY = e.touches[0].clientY - dragStartY;
-
-                const speed = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-                const speedInfluence = Math.min(speed / 10, 3);
-                intensitySlider.value = Math.max(100, Math.min(1500, parseInt(intensitySlider.value) + speedInfluence * 20));
-
-                dragStartX = e.touches[0].clientX;
-                dragStartY = e.touches[0].clientY;
-            }
-        });
-
-        canvas.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // Image preview overlay
-        const imageGrid = document.querySelectorAll('.grid-item img');
-        const imagePreviewOverlay = document.getElementById('imagePreviewOverlay');
+        const previewOverlay = document.getElementById('imagePreviewOverlay');
         const previewImage = document.getElementById('previewImage');
+        const gridItems = document.querySelectorAll('.grid-item img');
 
-        imageGrid.forEach(img => {
-            img.addEventListener('click', (e) => {
-                previewImage.src = img.src;
-                imagePreviewOverlay.classList.add('is-active');
+        gridItems.forEach(img => {
+            img.addEventListener('mouseenter', (e) => {
+                previewImage.src = e.target.src;
+                previewImage.alt = e.target.alt;
+                previewOverlay.classList.add('is-active');
+            });
+
+            img.addEventListener('mouseleave', () => {
+                previewOverlay.classList.remove('is-active');
             });
         });
 
-        imagePreviewOverlay.addEventListener('click', (e) => {
-            if (e.target === imagePreviewOverlay) {
-                imagePreviewOverlay.classList.remove('is-active');
-            }
+
+        /* ==========================================================================
+           PRO SOFT-BODY PHYSICS ENGINE
+           ========================================================================== */
+        const canvas = document.getElementById('blobCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+
+        let width, height, centerX, centerY, maxRadius;
+
+        function resizeCanvas() {
+            const dpr = window.devicePixelRatio || 1;
+            width = window.innerWidth;
+            height = window.innerHeight;
+            
+            canvas.width = width * dpr;
+            canvas.height = height * dpr;
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+            
+            ctx.scale(dpr, dpr);
+            
+            centerX = width / 2;
+            centerY = height / 2;
+            maxRadius = Math.min(width, height) * 0.28;
+            
+            generatePoints();
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        const config = {
+            intensity: parseInt(document.getElementById('intensity').value),
+            speed: parseFloat(document.getElementById('speed').value),
+            complexity: parseInt(document.getElementById('complexity').value),
+            creativity: parseInt(document.getElementById('creativity').value),
+            r: parseInt(document.getElementById('rSlider').value),
+            g: parseInt(document.getElementById('gSlider').value),
+            b: parseInt(document.getElementById('bSlider').value)
+        };
+
+        ['intensity', 'speed', 'complexity', 'creativity', 'rSlider', 'gSlider', 'bSlider'].forEach(id => {
+            document.getElementById(id).addEventListener('input', (e) => {
+                let val = parseFloat(e.target.value);
+                if(id === 'rSlider') config.r = val;
+                else if(id === 'gSlider') config.g = val;
+                else if(id === 'bSlider') config.b = val;
+                else config[id] = val;
+                
+                if (id === 'intensity') generatePoints();
+            });
         });
+
+        const mouse = { x: 0, y: 0, isDragging: false };
+
+        function updateMouse(e, isTouch = false) {
+            const clientX = isTouch ? e.touches[0].clientX : e.clientX;
+            const clientY = isTouch ? e.touches[0].clientY : e.clientY;
+            mouse.x = clientX;
+            mouse.y = clientY;
+        }
+
+        window.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || designPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            mouse.isDragging = true;
+            updateMouse(e);
+        });
+        window.addEventListener('mousemove', (e) => { if(mouse.isDragging) updateMouse(e); });
+        window.addEventListener('mouseup', () => mouse.isDragging = false);
+
+        window.addEventListener('touchstart', (e) => {
+            if (e.target.closest('.control-panel') || e.target.closest('.editorial-header') || pleximoPage.classList.contains('is-visible') || designPage.classList.contains('is-visible') || aboutPage.classList.contains('is-visible') || cerebrumPage.classList.contains('is-visible')) return;
+            mouse.isDragging = true;
+            updateMouse(e, true);
+        }, { passive: true });
+        window.addEventListener('touchmove', (e) => {
+            if (mouse.isDragging) {
+                updateMouse(e, true);
+                e.preventDefault(); 
+            }
+        }, { passive: false });
+        window.addEventListener('touchend', () => mouse.isDragging = false);
+
+        let allPoints = [];
+        let shellCount = 0;
+
+        class Point {
+            constructor(angle, targetRadius, isShell) {
+                this.angle = angle;
+                this.targetRadius = targetRadius;
+                this.isShell = isShell;
+                this.x = centerX + Math.cos(angle) * targetRadius;
+                this.y = centerY + Math.sin(angle) * targetRadius;
+                this.vx = 0;
+                this.vy = 0;
+                this.seed = Math.random() * 1000;
+            }
+
+            update(time, dt) {
+                let wave = Math.sin(time + this.seed) * 40 + Math.cos(time * 0.4 + this.seed * 1.5) * 20;
+                if (!this.isShell) wave *= (this.targetRadius / (maxRadius || 1));
+
+                let currentTargetRadius = this.targetRadius + wave;
+                let idealX = centerX + Math.cos(this.angle) * currentTargetRadius;
+                let idealY = centerY + Math.sin(this.angle) * currentTargetRadius;
+
+                this.vx += (idealX - this.x) * 0.05 * dt;
+                this.vy += (idealY - this.y) * 0.05 * dt;
+
+                if (mouse.isDragging) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distanceSq = dx * dx + dy * dy;
+                    let influenceRadius = 280;
+                    
+                    if (distanceSq < influenceRadius * influenceRadius) {
+                        let distance = Math.sqrt(distanceSq);
+                        if (distance > 0) {
+                            let force = Math.pow((influenceRadius - distance) / influenceRadius, 2);
+                            this.vx += (dx / distance) * force * 15 * dt;
+                            this.vy += (dy / distance) * force * 15 * dt;
+                        }
+                    }
+                }
+
+                this.vx *= Math.pow(0.85, dt);
+                this.vy *= Math.pow(0.85, dt);
+                this.x += this.vx * dt;
+                this.y += this.vy * dt;
+            }
+        }
+
+        function generatePoints() {
+            allPoints = [];
+            shellCount = Math.floor(config.intensity * 0.5);
+            let internalCount = config.intensity - shellCount;
+
+            for (let i = 0; i < shellCount; i++) {
+                let angle = (i / shellCount) * Math.PI * 2;
+                allPoints.push(new Point(angle, maxRadius, true));
+            }
+
+            for (let i = 0; i < internalCount; i++) {
+                let angle = Math.random() * Math.PI * 2;
+                let radius = Math.sqrt(Math.random()) * (maxRadius * 0.95); 
+                allPoints.push(new Point(angle, radius, false));
+            }
+        }
+
+        let timeTracker = 0;
+        let lastTime = 0;
+
+        function animate(timestamp) {
+            if (!lastTime) lastTime = timestamp;
+            let dt = (timestamp - lastTime) / 16.666;
+            if (dt > 3) dt = 3;
+            lastTime = timestamp;
+
+            timeTracker += 0.01 * config.speed * dt;
+
+            ctx.fillStyle = '#fafafa';
+            ctx.fillRect(0, 0, width, height);
+
+            const colorStroke = `rgb(${config.r}, ${config.g}, ${config.b})`;
+            const colorFill = `rgba(${config.r}, ${config.g}, ${config.b}, 0.04)`;
+
+            for(let i=0; i<allPoints.length; i++){
+                allPoints[i].update(timeTracker, dt);
+            }
+
+            // 1. Vloeiende Omtrek
+            if (shellCount > 0) {
+                ctx.beginPath();
+                let startX = (allPoints[0].x + allPoints[shellCount - 1].x) / 2;
+                let startY = (allPoints[0].y + allPoints[shellCount - 1].y) / 2;
+                ctx.moveTo(startX, startY);
+
+                let curveStep = shellCount > 400 ? 3 : 1;
+                for (let i = 0; i < shellCount; i += curveStep) {
+                    let cp = allPoints[i];
+                    let np = allPoints[(i + curveStep) % shellCount];
+                    ctx.quadraticCurveTo(cp.x, cp.y, (cp.x + np.x) / 2, (cp.y + np.y) / 2);
+                }
+                
+                ctx.closePath();
+                ctx.fillStyle = colorFill;
+                ctx.fill();
+                ctx.strokeStyle = colorStroke;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            }
+
+            // 2. Complexiteit Lijnen
+            if (config.complexity > 0 && shellCount > 0) {
+                ctx.strokeStyle = `rgba(${config.r}, ${config.g}, ${config.b}, ${config.complexity / 400})`;
+                ctx.lineWidth = 0.8;
+                let baseStep = Math.floor(shellCount / 10);
+                let stepDivider = Math.max(1, Math.floor((100 - config.complexity) / 4));
+                
+                ctx.beginPath();
+                for (let i = 0; i < shellCount; i += stepDivider * 2) {
+                    let targetIndex = (i + baseStep) % shellCount;
+                    ctx.moveTo(allPoints[i].x, allPoints[i].y);
+                    ctx.lineTo(allPoints[targetIndex].x, allPoints[targetIndex].y);
+                }
+                ctx.stroke();
+            }
+
+            // 3. Creativiteit Lijnen
+            if (config.creativity > 0 && shellCount > 0) {
+                ctx.strokeStyle = `rgba(${config.r}, ${config.g}, ${config.b}, ${config.creativity / 800})`;
+                let densityStep = Math.max(3, Math.floor((100 - config.creativity) / 2));
+                let reach = Math.floor((config.creativity / 100) * 10) + 1;
+
+                ctx.beginPath();
+                for (let i = 0; i < shellCount; i += densityStep) {
+                    for (let j = 1; j <= reach; j++) {
+                        let targetIndex = (i + j * 5) % shellCount;
+                        ctx.moveTo(allPoints[i].x, allPoints[i].y);
+                        ctx.lineTo(allPoints[targetIndex].x, allPoints[targetIndex].y);
+                    }
+                }
+                ctx.stroke();
+            }
+
+            // 4. Stippen Tekenen
+            let pointSize = config.intensity > 800 ? 1.5 : 2.5; 
+            ctx.fillStyle = colorStroke;
+            
+            ctx.beginPath();
+            for(let i=0; i<allPoints.length; i++) {
+                let p = allPoints[i];
+                let r = p.isShell ? pointSize : pointSize * 0.75;
+                ctx.moveTo(p.x + r, p.y);
+                ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+            }
+            ctx.fill();
+
+            requestAnimationFrame(animate);
+        }
+
+        resizeCanvas();
+        requestAnimationFrame(animate);
     </script>
 </body>
 </html>
